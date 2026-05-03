@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FurAndFound — Lost Pet Poster Maker</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    /* ===== LOST PET PAGE ===== */
+    #lost-page {
+      padding: 60px 48px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    #lost-page h2 {
+      text-align: center;
+      margin-bottom: 0.4rem;
+    }
+
+    .lost-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 48px;
+      margin-top: 48px;
+      align-items: start;
+    }
+
+    /* FORM */
+    .poster-form {
+      background: #fff;
+      border-radius: 18px;
+      padding: 36px;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+    }
+
+    .poster-form h3 {
+      font-size: 1.3rem;
+      margin-bottom: 24px;
+      color: #1a1a1a;
+    }
+
+    .form-group {
+      margin-bottom: 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .form-group label {
+      font-weight: 600;
+      font-size: 0.95rem;
+      color: #333;
+    }
+
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+      padding: 12px 14px;
+      border: 2px solid #e8e8e8;
+      border-radius: 10px;
+      font-size: 1rem;
+      font-family: inherit;
+      color: #333;
+      transition: border-color 0.2s;
+      outline: none;
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus,
+    .form-group select:focus {
+      border-color: #d9601a;
+    }
+
+    .form-group textarea {
+      resize: vertical;
+      min-height: 90px;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+
+    .reward-input-wrap {
+      display: flex;
+      align-items: center;
+      border: 2px solid #e8e8e8;
+      border-radius: 10px;
+      overflow: hidden;
+      transition: border-color 0.2s;
+    }
+
+    .reward-input-wrap:focus-within {
+      border-color: #d9601a;
+    }
+
+    .reward-input-wrap span {
+      background: #fdf7f0;
+      padding: 12px 14px;
+      font-weight: 700;
+      color: #d9601a;
+      font-size: 1rem;
+    }
+
+    .reward-input-wrap input {
+      border: none !important;
+      border-radius: 0 !important;
+      flex: 1;
+      padding: 12px 14px;
+    }
+
+    .reward-input-wrap input:focus {
+      border-color: transparent !important;
+    }
+
+    .photo-upload {
+      border: 2px dashed #d9601a;
+      border-radius: 10px;
+      padding: 24px;
+      text-align: center;
+      cursor: pointer;
+      background: #fdf7f0;
+      transition: background 0.2s;
+    }
+
+    .photo-upload:hover {
+      background: #fdebd8;
+    }
+
+    .photo-upload input {
+      display: none;
+    }
+
+    .photo-upload p {
+      color: #d9601a;
+      font-weight: 600;
+      margin: 0;
+    }
+
+    .photo-upload small {
+      color: #999;
+      font-size: 0.82rem;
+    }
+
+    #photo-preview {
+      width: 100%;
+      max-height: 160px;
+      object-fit: cover;
+      border-radius: 8px;
+      margin-top: 12px;
+      display: none;
+    }
+
+    .generate-btn {
+      width: 100%;
+      background: #d9601a;
+      color: #fff;
+      border: none;
+      padding: 16px;
+      border-radius: 32px;
+      font-size: 1.1rem;
+      font-weight: 700;
+      cursor: pointer;
+      margin-top: 8px;
+      transition: background 0.2s, transform 0.15s;
+    }
+
+    .generate-btn:hover {
+      background: #b84e12;
+      transform: translateY(-2px);
+    }
+
+    /* POSTER PREVIEW */
+    .poster-preview-wrap {
+      position: sticky;
+      top: 100px;
+    }
+
+    .poster-preview-wrap h3 {
+      font-size: 1.3rem;
+      margin-bottom: 16px;
+      color: #1a1a1a;
+      text-align: center;
+    }
+
+    #poster {
+      background: #fff;
+      border: 3px solid #d9601a;
+      border-radius: 18px;
+      padding: 32px 28px;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.1);
+      text-align: center;
+      min-height: 420px;
+    }
+
+    #poster .poster-status {
+      font-size: 1.6rem;
+      font-weight: 900;
+      letter-spacing: 3px;
+      color: #d9601a;
+      background: #fdebd8;
+      border-radius: 8px;
+      padding: 8px 20px;
+      display: inline-block;
+      margin-bottom: 16px;
+    }
+
+    #poster .poster-pet-name {
+      font-size: 2rem;
+      font-weight: 800;
+      color: #1a1a1a;
+      margin-bottom: 4px;
+    }
+
+    #poster .poster-breed {
+      font-size: 1rem;
+      color: #888;
+      margin-bottom: 16px;
+    }
+
+    #poster-photo {
+      width: 100%;
+      max-height: 200px;
+      object-fit: cover;
+      border-radius: 10px;
+      margin-bottom: 16px;
+      display: none;
+    }
+
+    #poster .poster-photo-placeholder {
+      width: 100%;
+      height: 160px;
+      background: #f5f5f5;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #bbb;
+      font-size: 3rem;
+      margin-bottom: 16px;
+    }
+
+    #poster .poster-details {
+      text-align: left;
+      font-size: 0.92rem;
+      color: #444;
+      margin-bottom: 16px;
+      line-height: 1.8;
+    }
+
+    #poster .poster-details strong {
+      color: #1a1a1a;
+    }
+
+    #poster .poster-description {
+      background: #fdf7f0;
+      border-radius: 8px;
+      padding: 12px 16px;
+      font-size: 0.92rem;
+      color: #555;
+      text-align: left;
+      margin-bottom: 16px;
+      line-height: 1.7;
+    }
+
+    #poster .poster-reward {
+      background: #d9601a;
+      color: #fff;
+      border-radius: 10px;
+      padding: 12px 20px;
+      font-size: 1.4rem;
+      font-weight: 800;
+      margin-bottom: 14px;
+    }
+
+    #poster .poster-contact {
+      font-size: 1rem;
+      font-weight: 700;
+      color: #1a1a1a;
+    }
+
+    #poster .poster-empty {
+      color: #bbb;
+      font-size: 1rem;
+      padding: 60px 0;
+    }
+
+    .poster-actions {
+      display: flex;
+      gap: 12px;
+      margin-top: 16px;
+    }
+
+    .poster-actions button {
+      flex: 1;
+      padding: 13px;
+      border-radius: 28px;
+      font-size: 0.95rem;
+      font-weight: 700;
+      cursor: pointer;
+      border: none;
+      transition: all 0.2s;
+    }
+
+    .btn-print {
+      background: #d9601a;
+      color: #fff;
+    }
+
+    .btn-print:hover {
+      background: #b84e12;
+    }
+
+    .btn-copy {
+      background: transparent;
+      border: 2px solid #d9601a !important;
+      color: #d9601a;
+    }
+
+    .btn-copy:hover {
+      background: #fdebd8;
+    }
+
+    /* COMMUNITY BOARD */
+    #board-section {
+      padding: 60px 48px;
+      background: #fdf7f0;
+    }
+
+    #board-section h2 {
+      text-align: center;
+      margin-bottom: 0.4rem;
+    }
+
+    #board-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 24px;
+      max-width: 1100px;
+      margin: 32px auto 0;
+    }
+
+    .board-card {
+      background: #fff;
+      border-radius: 16px;
+      padding: 24px;
+      box-shadow: 0 4px 18px rgba(0,0,0,0.07);
+      border-left: 5px solid #d9601a;
+      text-align: left;
+    }
+
+    .board-card .board-status {
+      font-size: 0.75rem;
+      font-weight: 800;
+      letter-spacing: 2px;
+      color: #d9601a;
+      margin-bottom: 6px;
+    }
+
+    .board-card img {
+      width: 100%;
+      height: 140px;
+      object-fit: cover;
+      border-radius: 8px;
+      margin-bottom: 12px;
+    }
+
+    .board-card .board-no-photo {
+      width: 100%;
+      height: 100px;
+      background: #f5f5f5;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.5rem;
+      margin-bottom: 12px;
+    }
+
+    .board-card h4 {
+      font-size: 1.15rem;
+      color: #1a1a1a;
+      margin-bottom: 4px;
+    }
+
+    .board-card .board-breed {
+      font-size: 0.82rem;
+      color: #888;
+      margin-bottom: 8px;
+    }
+
+    .board-card p {
+      font-size: 0.88rem;
+      color: #555;
+      margin-bottom: 10px;
+      line-height: 1.6;
+    }
+
+    .board-card .board-reward {
+      background: #fdebd8;
+      color: #d9601a;
+      font-weight: 700;
+      font-size: 0.9rem;
+      padding: 5px 12px;
+      border-radius: 20px;
+      display: inline-block;
+      margin-bottom: 8px;
+    }
+
+    .board-card .board-contact {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: #333;
+    }
+
+    .board-empty {
+      text-align: center;
+      color: #bbb;
+      font-size: 1rem;
+      padding: 40px;
+      grid-column: 1 / -1;
+    }
+
+    /* PRINT STYLES */
+    @media print {
+      nav, footer, .poster-form, .poster-preview-wrap h3,
+      .poster-actions, #board-section, .section-sub { display: none !important; }
+      #lost-page { padding: 0; max-width: 100%; }
+      .lost-layout { grid-template-columns: 1fr; }
+      #poster { border: 3px solid #000; box-shadow: none; }
+    }
+
+    @media (max-width: 860px) {
+      .lost-layout { grid-template-columns: 1fr; }
+      .poster-preview-wrap { position: static; }
+      #lost-page { padding: 40px 24px; }
+      #board-section { padding: 40px 24px; }
+      .form-row { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <div class="nav-logo">🐾 FurAndFound</div>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="meet.html">Meet the Pets</a></li>
+      <li><a href="why.html">Why Adopt</a></li>
+      <li><a href="care.html">Pet Care</a></li>
+      <li><a href="how.html">How It Works</a></li>
+      <li><a href="lost.html" class="nav-active">Lost Pet</a></li>
+      <li><a href="https://www.petfinder.com" target="_blank" rel="noopener" class="nav-btn">Adopt Now</a></li>
+    </ul>
+  </nav>
+
+  <!-- POSTER MAKER -->
+  <div id="lost-page">
+    <h2>🔍 Lost Pet Poster Maker</h2>
+    <p class="section-sub">Fill in your pet's details, generate a poster, and post it to our community board so others can help find them.</p>
+
+    <div class="lost-layout">
+
+      <!-- FORM -->
+      <div class="poster-form">
+        <h3>Your Pet's Details</h3>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label>Pet Name *</label>
+            <input type="text" id="f-name" placeholder="e.g. Max" />
+          </div>
+          <div class="form-group">
+            <label>Animal Type *</label>
+            <select id="f-type">
+              <option value="">Select...</option>
+              <option>Dog</option>
+              <option>Cat</option>
+              <option>Other</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label>Breed</label>
+            <input type="text" id="f-breed" placeholder="e.g. Beagle" />
+          </div>
+          <div class="form-group">
+            <label>Colour</label>
+            <input type="text" id="f-color" placeholder="e.g. Brown & white" />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Last Seen Location *</label>
+          <input type="text" id="f-location" placeholder="e.g. Central Park, New York" />
+        </div>
+
+        <div class="form-group">
+          <label>Date Last Seen</label>
+          <input type="date" id="f-date" />
+        </div>
+
+        <div class="form-group">
+          <label>Description</label>
+          <textarea id="f-desc" placeholder="Any identifying features, collar colour, microchip, temperament..."></textarea>
+        </div>
+
+        <div class="form-group">
+          <label>Reward Amount</label>
+          <div class="reward-input-wrap">
+            <span>$</span>
+            <input type="number" id="f-reward" placeholder="e.g. 200" min="0" />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Your Contact Info *</label>
+          <input type="text" id="f-contact" placeholder="Phone number or email" />
+        </div>
+
+        <div class="form-group">
+          <label>Pet Photo</label>
+          <div class="photo-upload" onclick="document.getElementById('f-photo').click()">
+            <input type="file" id="f-photo" accept="image/*" onchange="previewPhoto(event)" />
+            <p>📷 Click to upload a photo</p>
+            <small>JPG, PNG, GIF supported</small>
+            <img id="photo-preview" alt="Photo preview" />
+          </div>
+        </div>
+
+        <button class="generate-btn" onclick="generatePoster()">Generate Poster</button>
+      </div>
+
+      <!-- POSTER PREVIEW -->
+      <div class="poster-preview-wrap">
+        <h3>Poster Preview</h3>
+        <div id="poster">
+          <div class="poster-empty">Fill in the form and click<br><strong>Generate Poster</strong> to see your poster here.</div>
+        </div>
+        <div class="poster-actions" id="poster-actions" style="display:none;">
+          <button class="btn-print" onclick="printPoster()">🖨️ Print Poster</button>
+          <button class="btn-copy" onclick="postToBoard()">📌 Post to Community Board</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- COMMUNITY BOARD -->
+  <div id="board-section">
+    <h2>📌 Community Lost Pet Board</h2>
+    <p class="section-sub">Posters posted by the community. If you've seen any of these pets, please contact the owner directly.</p>
+    <div id="board-grid">
+      <div class="board-empty">No lost pet posters yet. Be the first to post one above.</div>
+    </div>
+  </div>
+
+  <footer>
+    <p>🐾 FurAndFound Animal Shelter · Connecting pets with the people who care</p>
+    <p>Built with love for dogs, cats, kids, adults, and seniors everywhere.</p>
+  </footer>
+
+  <script>
+    let photoDataURL = null;
+    let currentPosterData = null;
+
+    function previewPhoto(event) {
+      const file = event.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        photoDataURL = e.target.result;
+        const preview = document.getElementById('photo-preview');
+        preview.src = photoDataURL;
+        preview.style.display = 'block';
+      };
+      reader.readAsDataURL(file);
+    }
+
+    function generatePoster() {
+      const name     = document.getElementById('f-name').value.trim();
+      const type     = document.getElementById('f-type').value;
+      const breed    = document.getElementById('f-breed').value.trim();
+      const color    = document.getElementById('f-color').value.trim();
+      const location = document.getElementById('f-location').value.trim();
+      const date     = document.getElementById('f-date').value;
+      const desc     = document.getElementById('f-desc').value.trim();
+      const reward   = document.getElementById('f-reward').value.trim();
+      const contact  = document.getElementById('f-contact').value.trim();
+
+      if (!name || !type || !location || !contact) {
+        alert('Please fill in at least: Pet Name, Animal Type, Last Seen Location, and Contact Info.');
+        return;
+      }
+
+      currentPosterData = { name, type, breed, color, location, date, desc, reward, contact, photo: photoDataURL };
+
+      const formattedDate = date ? new Date(date + 'T00:00:00').toLocaleDateString('en-US', { year:'numeric', month:'long', day:'numeric' }) : null;
+
+      document.getElementById('poster').innerHTML = `
+        <div class="poster-status">LOST ${type.toUpperCase()}</div>
+        <div class="poster-pet-name">${name}</div>
+        <div class="poster-breed">${[breed, color].filter(Boolean).join(' · ') || '&nbsp;'}</div>
+        ${photoDataURL
+          ? `<img id="poster-photo" src="${photoDataURL}" style="display:block; width:100%; max-height:200px; object-fit:cover; border-radius:10px; margin-bottom:16px;" />`
+          : `<div class="poster-photo-placeholder">${type === 'Dog' ? '🐶' : type === 'Cat' ? '🐱' : '🐾'}</div>`
+        }
+        <div class="poster-details">
+          <strong>Last Seen:</strong> ${location}<br>
+          ${formattedDate ? `<strong>Date:</strong> ${formattedDate}<br>` : ''}
+        </div>
+        ${desc ? `<div class="poster-description">${desc}</div>` : ''}
+        ${reward ? `<div class="poster-reward">💰 $${reward} REWARD</div>` : ''}
+        <div class="poster-contact">📞 ${contact}</div>
+      `;
+
+      document.getElementById('poster-actions').style.display = 'flex';
+    }
+
+    function printPoster() {
+      window.print();
+    }
+
+    function postToBoard() {
+      if (!currentPosterData) return;
+      const data = currentPosterData;
+      const formattedDate = data.date ? new Date(data.date + 'T00:00:00').toLocaleDateString('en-US', { year:'numeric', month:'long', day:'numeric' }) : null;
+
+      const card = document.createElement('div');
+      card.className = 'board-card';
+      card.innerHTML = `
+        <div class="board-status">LOST ${data.type.toUpperCase()}</div>
+        ${data.photo
+          ? `<img src="${data.photo}" alt="${data.name}" />`
+          : `<div class="board-no-photo">${data.type === 'Dog' ? '🐶' : data.type === 'Cat' ? '🐱' : '🐾'}</div>`
+        }
+        <h4>${data.name}</h4>
+        <div class="board-breed">${[data.breed, data.color].filter(Boolean).join(' · ') || data.type}</div>
+        <p><strong>Last seen:</strong> ${data.location}${formattedDate ? ` on ${formattedDate}` : ''}</p>
+        ${data.desc ? `<p>${data.desc}</p>` : ''}
+        ${data.reward ? `<span class="board-reward">💰 $${data.reward} Reward</span><br>` : ''}
+        <div class="board-contact">📞 ${data.contact}</div>
+      `;
+
+      const grid = document.getElementById('board-grid');
+      const empty = grid.querySelector('.board-empty');
+      if (empty) empty.remove();
+      grid.prepend(card);
+
+      grid.scrollIntoView({ behavior: 'smooth' });
+      alert(`✅ "${data.name}" has been posted to the community board!`);
+    }
+  </script>
+
+</body>
+</html>

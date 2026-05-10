@@ -323,110 +323,70 @@
       background: #fdebd8;
     }
 
-    /* COMMUNITY BOARD */
-    #board-section {
-      padding: 60px 48px;
-      background: #fdf7f0;
-    }
-
-    #board-section h2 {
-      text-align: center;
-      margin-bottom: 0.4rem;
-    }
-
-    #board-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-      gap: 24px;
-      max-width: 1100px;
-      margin: 32px auto 0;
-    }
-
-    .board-card {
+    /* SHARE SECTION */
+    #share-section {
+      display: none;
+      margin-top: 24px;
       background: #fff;
-      border-radius: 16px;
-      padding: 24px;
-      box-shadow: 0 4px 18px rgba(0,0,0,0.07);
-      border-left: 5px solid #d9601a;
-      text-align: left;
+      border-radius: 18px;
+      padding: 28px;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.08);
     }
 
-    .board-card .board-status {
-      font-size: 0.75rem;
-      font-weight: 800;
-      letter-spacing: 2px;
-      color: #d9601a;
+    #share-section h3 {
+      font-size: 1.1rem;
       margin-bottom: 6px;
+      color: #1a1a1a;
     }
 
-    .board-card img {
-      width: 100%;
-      height: 140px;
-      object-fit: cover;
-      border-radius: 8px;
-      margin-bottom: 12px;
+    #share-section p {
+      font-size: 0.88rem;
+      color: #888;
+      margin-bottom: 18px;
     }
 
-    .board-card .board-no-photo {
-      width: 100%;
-      height: 100px;
-      background: #f5f5f5;
-      border-radius: 8px;
+    .share-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .share-btn {
       display: flex;
       align-items: center;
-      justify-content: center;
-      font-size: 2.5rem;
-      margin-bottom: 12px;
-    }
-
-    .board-card h4 {
-      font-size: 1.15rem;
-      color: #1a1a1a;
-      margin-bottom: 4px;
-    }
-
-    .board-card .board-breed {
-      font-size: 0.82rem;
-      color: #888;
-      margin-bottom: 8px;
-    }
-
-    .board-card p {
-      font-size: 0.88rem;
-      color: #555;
-      margin-bottom: 10px;
-      line-height: 1.6;
-    }
-
-    .board-card .board-reward {
-      background: #fdebd8;
-      color: #d9601a;
+      gap: 10px;
+      padding: 12px 16px;
+      border-radius: 12px;
+      font-size: 0.92rem;
       font-weight: 700;
-      font-size: 0.9rem;
-      padding: 5px 12px;
-      border-radius: 20px;
-      display: inline-block;
-      margin-bottom: 8px;
+      text-decoration: none;
+      cursor: pointer;
+      border: none;
+      transition: opacity 0.2s, transform 0.15s;
+      color: #fff;
     }
 
-    .board-card .board-contact {
-      font-size: 0.85rem;
-      font-weight: 600;
-      color: #333;
+    .share-btn:hover {
+      opacity: 0.88;
+      transform: translateY(-1px);
     }
 
-    .board-empty {
-      text-align: center;
-      color: #bbb;
-      font-size: 1rem;
-      padding: 40px;
-      grid-column: 1 / -1;
+    .share-btn .share-icon {
+      font-size: 1.2rem;
+      flex-shrink: 0;
     }
+
+    .share-facebook { background: #1877f2; }
+    .share-twitter  { background: #000; }
+    .share-whatsapp { background: #25d366; }
+    .share-email    { background: #555; }
+    .share-nextdoor { background: #00b246; }
+    .share-petfinder{ background: #e8650a; }
 
     /* PRINT STYLES */
     @media print {
       nav, footer, .poster-form, .poster-preview-wrap h3,
-      .poster-actions, #board-section, .section-sub { display: none !important; }
+      .poster-actions, #share-section, .section-sub { display: none !important; }
       #lost-page { padding: 0; max-width: 100%; }
       .lost-layout { grid-template-columns: 1fr; }
       #poster { border: 3px solid #000; box-shadow: none; }
@@ -543,19 +503,34 @@
         </div>
         <div class="poster-actions" id="poster-actions" style="display:none;">
           <button class="btn-print" onclick="printPoster()">🖨️ Print Poster</button>
-          <button class="btn-copy" onclick="postToBoard()">📌 Post to Community Board</button>
+        </div>
+
+        <div id="share-section">
+          <h3>📢 Share to Your Community</h3>
+          <p>Post your pet's details directly to real community platforms and public services.</p>
+          <div class="share-grid">
+            <a id="share-facebook" class="share-btn share-facebook" target="_blank" rel="noopener">
+              <span class="share-icon">📘</span> Facebook
+            </a>
+            <a id="share-twitter" class="share-btn share-twitter" target="_blank" rel="noopener">
+              <span class="share-icon">🐦</span> Twitter / X
+            </a>
+            <a id="share-whatsapp" class="share-btn share-whatsapp" target="_blank" rel="noopener">
+              <span class="share-icon">💬</span> WhatsApp
+            </a>
+            <a id="share-email" class="share-btn share-email">
+              <span class="share-icon">✉️</span> Email a Group
+            </a>
+            <a href="https://nextdoor.com/lost_and_found/" target="_blank" rel="noopener" class="share-btn share-nextdoor">
+              <span class="share-icon">🏘️</span> Nextdoor Lost &amp; Found
+            </a>
+            <a id="share-petfinder" class="share-btn share-petfinder" target="_blank" rel="noopener">
+              <span class="share-icon">🐾</span> Report on Petfinder
+            </a>
+          </div>
         </div>
       </div>
 
-    </div>
-  </div>
-
-  <!-- COMMUNITY BOARD -->
-  <div id="board-section">
-    <h2>📌 Community Lost Pet Board</h2>
-    <p class="section-sub">Posters posted by the community. If you've seen any of these pets, please contact the owner directly.</p>
-    <div id="board-grid">
-      <div class="board-empty">No lost pet posters yet. Be the first to post one above.</div>
     </div>
   </div>
 
@@ -619,40 +594,49 @@
       `;
 
       document.getElementById('poster-actions').style.display = 'flex';
+      buildShareLinks();
+      document.getElementById('share-section').style.display = 'block';
     }
 
     function printPoster() {
       window.print();
     }
 
-    function postToBoard() {
+    function buildShareLinks() {
       if (!currentPosterData) return;
-      const data = currentPosterData;
-      const formattedDate = data.date ? new Date(data.date + 'T00:00:00').toLocaleDateString('en-US', { year:'numeric', month:'long', day:'numeric' }) : null;
+      const d = currentPosterData;
+      const formattedDate = d.date ? new Date(d.date + 'T00:00:00').toLocaleDateString('en-US', { year:'numeric', month:'long', day:'numeric' }) : '';
 
-      const card = document.createElement('div');
-      card.className = 'board-card';
-      card.innerHTML = `
-        <div class="board-status">LOST ${data.type.toUpperCase()}</div>
-        ${data.photo
-          ? `<img src="${data.photo}" alt="${data.name}" />`
-          : `<div class="board-no-photo">${data.type === 'Dog' ? '🐶' : data.type === 'Cat' ? '🐱' : '🐾'}</div>`
-        }
-        <h4>${data.name}</h4>
-        <div class="board-breed">${[data.breed, data.color].filter(Boolean).join(' · ') || data.type}</div>
-        <p><strong>Last seen:</strong> ${data.location}${formattedDate ? ` on ${formattedDate}` : ''}</p>
-        ${data.desc ? `<p>${data.desc}</p>` : ''}
-        ${data.reward ? `<span class="board-reward">💰 $${data.reward} Reward</span><br>` : ''}
-        <div class="board-contact">📞 ${data.contact}</div>
-      `;
+      const text = [
+        `🚨 LOST ${d.type.toUpperCase()}: ${d.name}`,
+        d.breed ? `Breed: ${d.breed}` : '',
+        d.color ? `Colour: ${d.color}` : '',
+        `Last seen: ${d.location}${formattedDate ? ' on ' + formattedDate : ''}`,
+        d.desc ? d.desc : '',
+        d.reward ? `💰 $${d.reward} Reward` : '',
+        `📞 Contact: ${d.contact}`,
+        '#LostPet #MissingPet #LostDog #LostCat'
+      ].filter(Boolean).join('\n');
 
-      const grid = document.getElementById('board-grid');
-      const empty = grid.querySelector('.board-empty');
-      if (empty) empty.remove();
-      grid.prepend(card);
+      const enc = encodeURIComponent(text);
+      const encShort = encodeURIComponent(
+        `🚨 LOST ${d.type}: ${d.name} — last seen ${d.location}. Contact: ${d.contact} #LostPet`
+      );
 
-      grid.scrollIntoView({ behavior: 'smooth' });
-      alert(`✅ "${data.name}" has been posted to the community board!`);
+      document.getElementById('share-facebook').href =
+        `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(window.location.href)}&quote=${enc}`;
+
+      document.getElementById('share-twitter').href =
+        `https://twitter.com/intent/tweet?text=${encShort}`;
+
+      document.getElementById('share-whatsapp').href =
+        `https://wa.me/?text=${enc}`;
+
+      document.getElementById('share-email').href =
+        `mailto:?subject=${encodeURIComponent(`Lost ${d.type}: ${d.name}`)}&body=${enc}`;
+
+      document.getElementById('share-petfinder').href =
+        `https://www.petfinder.com/lost-pets/report-lost-pet/?animal_type=${encodeURIComponent(d.type)}&name=${encodeURIComponent(d.name)}&location=${encodeURIComponent(d.location)}`;
     }
   </script>
 

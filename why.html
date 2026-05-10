@@ -9,7 +9,7 @@
 <body>
 
   <nav>
-    <div class="nav-logo">🐾 FurAndFound</div>
+    <a href="index.html" class="nav-logo">🐾 FurAndFound</a>
     <ul class="nav-links">
       <li><a href="index.html">Home</a></li>
       <li><a href="meet.html">Browse Breeds</a></li>
@@ -21,7 +21,7 @@
     </ul>
   </nav>
 
-  <section id="why">
+  <section>
     <h2>Why Adoption Matters</h2>
     <p class="section-sub">The facts speak for themselves — adopting saves lives.</p>
 
@@ -47,32 +47,12 @@
     <div class="awareness-box">
       <h3>🌍 Help Spread Awareness</h3>
       <p>
-        You don't have to adopt to help. Sharing this page, talking to a neighbor,
+        You don't have to adopt to help. Sharing this page, talking to a neighbour,
         or posting about shelter animals on social media can inspire someone else to act.
         Every voice counts — especially yours.
       </p>
-      <button class="btn-primary" onclick="sharesite()" id="share-btn">🔗 Share This Site with a Friend</button>
-      <p id="share-msg" style="display:none; margin-top:14px; font-size:1rem; color:#fff; font-weight:600;">✅ Link copied! Paste it and send it to a friend or family member 🐾</p>
-      <script>
-        function sharesite() {
-          const link = window.location.origin + '/index.html';
-          const text = 'Hey! Check out FurAndFound — a site about helping shelter animals find loving homes! 🐾';
-          if (navigator.share) {
-            navigator.share({ title: 'FurAndFound', text: text, url: window.location.href });
-          } else {
-            navigator.clipboard.writeText(window.location.href).then(function() {
-              const msg = document.getElementById('share-msg');
-              const btn = document.getElementById('share-btn');
-              msg.style.display = 'block';
-              btn.textContent = '✅ Copied!';
-              setTimeout(function() {
-                msg.style.display = 'none';
-                btn.innerHTML = '🔗 Share This Site with a Friend';
-              }, 3000);
-            });
-          }
-        }
-      </script>
+      <button class="btn-white" onclick="sharesite()" id="share-btn">🔗 Share This Site with a Friend</button>
+      <p id="share-msg" style="display:none; margin-top:14px; font-size:1rem; font-weight:600;">✅ Link copied! Paste it and send it to a friend or family member 🐾</p>
     </div>
   </section>
 
@@ -80,6 +60,25 @@
     <p>🐾 FurAndFound Animal Shelter · Connecting pets with the people who care</p>
     <p>Built with love for dogs, cats, kids, adults, and seniors everywhere.</p>
   </footer>
+
+  <script>
+    function sharesite() {
+      if (navigator.share) {
+        navigator.share({ title: 'FurAndFound', text: 'Help shelter animals find forever homes! Check out FurAndFound 🐾', url: window.location.href });
+      } else {
+        navigator.clipboard.writeText(window.location.href).then(function() {
+          var msg = document.getElementById('share-msg');
+          var btn = document.getElementById('share-btn');
+          msg.style.display = 'block';
+          btn.textContent = '✅ Copied!';
+          setTimeout(function() {
+            msg.style.display = 'none';
+            btn.textContent = '🔗 Share This Site with a Friend';
+          }, 3000);
+        });
+      }
+    }
+  </script>
 
 </body>
 </html>

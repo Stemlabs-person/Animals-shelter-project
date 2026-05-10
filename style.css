@@ -12,21 +12,18 @@ html {
 body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   font-size: 18px;
-  color: #2c2c2c;
+  color: #555;
   background: #fff;
   line-height: 1.7;
 }
 
-h2 {
-  font-size: 2.2rem;
-  text-align: center;
-  margin-bottom: 0.5rem;
-  color: #1a1a1a;
-}
+h1 { font-size: 3.2rem; color: #1a1a1a; line-height: 1.15; }
+h2 { font-size: 2.2rem; color: #1a1a1a; text-align: center; margin-bottom: 0.5rem; }
+h3 { color: #1a1a1a; }
 
 .section-sub {
   text-align: center;
-  color: #666;
+  color: #888;
   font-size: 1.05rem;
   margin-bottom: 3rem;
   max-width: 620px;
@@ -59,6 +56,7 @@ nav {
   font-size: 1.5rem;
   font-weight: 800;
   color: #d9601a;
+  text-decoration: none;
 }
 
 .nav-links {
@@ -66,6 +64,7 @@ nav {
   display: flex;
   gap: 28px;
   align-items: center;
+  flex-wrap: wrap;
 }
 
 .nav-links a {
@@ -80,6 +79,7 @@ nav {
   color: #d9601a;
 }
 
+/* Active nav link — orange with underline */
 .nav-active {
   color: #d9601a !important;
   font-weight: 700 !important;
@@ -87,11 +87,15 @@ nav {
   padding-bottom: 2px;
 }
 
+/* Nav Adopt Now button */
 .nav-btn {
   background: #d9601a;
   color: #fff !important;
   padding: 10px 22px;
   border-radius: 30px;
+  font-weight: 500 !important;
+  border-bottom: none !important;
+  transition: background 0.2s;
 }
 
 .nav-btn:hover {
@@ -99,7 +103,122 @@ nav {
   color: #fff !important;
 }
 
-/* ===== INTRO / HERO ===== */
+/* ===== BUTTONS ===== */
+
+/* Type 1 — Primary */
+.btn-primary {
+  display: inline-block;
+  background: #d9601a;
+  color: #fff;
+  padding: 14px 32px;
+  border-radius: 32px;
+  border: none;
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.15s;
+  font-family: inherit;
+}
+
+.btn-primary:hover {
+  background: #b84e12;
+  transform: translateY(-2px);
+}
+
+/* Type 2 — Secondary */
+.btn-secondary {
+  display: inline-block;
+  background: transparent;
+  color: #d9601a;
+  padding: 14px 32px;
+  border-radius: 32px;
+  border: 2px solid #d9601a;
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-family: inherit;
+}
+
+.btn-secondary:hover {
+  background: #d9601a;
+  color: #fff;
+  transform: translateY(-2px);
+}
+
+/* Type 3 — Adopt (inside breed cards) */
+.btn-adopt {
+  display: inline-block;
+  background: #d9601a;
+  color: #fff;
+  padding: 11px 26px;
+  border-radius: 28px;
+  border: none;
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 0.95rem;
+  width: fit-content;
+  transition: background 0.2s;
+}
+
+.btn-adopt:hover {
+  background: #b84e12;
+}
+
+/* Type 4 — White CTA (on orange backgrounds) */
+.btn-white {
+  display: inline-block;
+  background: #fff;
+  color: #d9601a;
+  padding: 14px 32px;
+  border-radius: 32px;
+  border: none;
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.15s;
+  font-family: inherit;
+}
+
+.btn-white:hover {
+  background: #f5ede6;
+  transform: translateY(-2px);
+}
+
+/* Type 5 — Outline White (on orange backgrounds) */
+.btn-outline-white {
+  display: inline-block;
+  background: transparent;
+  color: #fff;
+  padding: 14px 32px;
+  border-radius: 32px;
+  border: 2px solid #fff;
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-family: inherit;
+}
+
+.btn-outline-white:hover {
+  background: #fff;
+  color: #d9601a;
+  transform: translateY(-2px);
+}
+
+/* Button row spacing */
+.btn-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  align-items: center;
+}
+
+/* ===== HOME / INTRO ===== */
 #intro {
   display: flex;
   align-items: center;
@@ -115,10 +234,7 @@ nav {
 }
 
 .intro-text h1 {
-  font-size: 3.2rem;
-  line-height: 1.15;
   margin-bottom: 1.2rem;
-  color: #1a1a1a;
 }
 
 .intro-text h1 span {
@@ -128,79 +244,33 @@ nav {
 .intro-text p {
   font-size: 1.15rem;
   color: #555;
-  margin-bottom: 2rem;
+  margin-bottom: 1.4rem;
 }
 
+/* Info note — orange left border box */
 .intro-note {
-  background: #fff3e8;
+  background: #fdebd8;
   border-left: 4px solid #d9601a;
   border-radius: 8px;
   padding: 14px 18px;
   font-size: 0.95rem;
   color: #555;
-  margin-bottom: 1.5rem;
+  margin-bottom: 1.8rem;
   line-height: 1.6;
 }
 
-.intro-buttons {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 14px;
-}
-
 .intro-art img {
-  width: 400px;
+  width: 420px;
   max-width: 100%;
   border-radius: 20px;
   box-shadow: 0 12px 40px rgba(0,0,0,0.12);
   object-fit: cover;
 }
 
-/* ===== BUTTONS ===== */
-.btn-primary {
-  display: inline-block;
-  background: #d9601a;
-  color: #fff;
-  padding: 14px 32px;
-  border-radius: 32px;
-  text-decoration: none;
-  font-weight: 700;
-  font-size: 1rem;
-  transition: background 0.2s, transform 0.15s;
-}
-
-.btn-primary:hover {
-  background: #b84e12;
-  transform: translateY(-2px);
-}
-
-.btn-secondary {
-  display: inline-block;
-  background: transparent;
-  color: #d9601a;
-  padding: 14px 32px;
-  border-radius: 32px;
-  border: 2px solid #d9601a;
-  text-decoration: none;
-  font-weight: 700;
-  font-size: 1rem;
-  transition: all 0.2s;
-}
-
-.btn-secondary:hover {
-  background: #d9601a;
-  color: #fff;
-  transform: translateY(-2px);
-}
-
-/* ===== PET CARDS ===== */
-#meet {
-  padding-bottom: 100px;
-}
-
+/* ===== BREED CARDS ===== */
 .pet-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-template-columns: repeat(3, 1fr);
   gap: 32px;
   max-width: 1100px;
   margin: 0 auto;
@@ -236,13 +306,13 @@ nav {
 
 .pet-info h3 {
   font-size: 1.4rem;
-  color: #1a1a1a;
-  margin-bottom: 4px;
+  margin-bottom: 6px;
 }
 
+/* Breed tag — orange pill */
 .pet-tag {
   display: inline-block;
-  background: #fde9d4;
+  background: #fdebd8;
   color: #d9601a;
   font-size: 0.8rem;
   font-weight: 700;
@@ -259,30 +329,12 @@ nav {
   margin-bottom: 20px;
 }
 
-.btn-adopt {
-  display: inline-block;
-  background: #d9601a;
-  color: #fff;
-  padding: 11px 26px;
-  border-radius: 28px;
-  text-decoration: none;
-  font-weight: 700;
-  font-size: 0.95rem;
-  text-align: center;
-  transition: background 0.2s;
-  width: fit-content;
-}
-
-.btn-adopt:hover {
-  background: #b84e12;
-}
-
-/* ===== WHY ADOPTION ===== */
+/* ===== STAT CARDS (Why Adopt) ===== */
 .facts-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  grid-template-columns: repeat(4, 1fr);
   gap: 24px;
-  max-width: 980px;
+  max-width: 1000px;
   margin: 0 auto 60px;
 }
 
@@ -306,6 +358,7 @@ nav {
   font-size: 0.95rem;
 }
 
+/* Awareness box — orange background */
 .awareness-box {
   background: #d9601a;
   color: #fff;
@@ -318,29 +371,21 @@ nav {
 
 .awareness-box h3 {
   font-size: 1.7rem;
+  color: #fff;
   margin-bottom: 14px;
 }
 
 .awareness-box p {
   font-size: 1.05rem;
-  opacity: 0.92;
+  opacity: 0.93;
   margin-bottom: 24px;
   line-height: 1.7;
 }
 
-.awareness-box .btn-primary {
-  background: #fff;
-  color: #d9601a;
-}
-
-.awareness-box .btn-primary:hover {
-  background: #f5ede6;
-}
-
-/* ===== PET CARE ===== */
+/* ===== PET CARE TIPS ===== */
 .tips-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  grid-template-columns: repeat(3, 1fr);
   gap: 24px;
   max-width: 1100px;
   margin: 0 auto;
@@ -365,8 +410,7 @@ nav {
 }
 
 .tip-card h3 {
-  font-size: 1.15rem;
-  color: #1a1a1a;
+  font-size: 1.1rem;
   margin-bottom: 10px;
 }
 
@@ -375,19 +419,15 @@ nav {
   font-size: 0.93rem;
 }
 
-/* ===== HOW IT WORKS ===== */
-#how {
-  background: #fdf7f0;
-}
-
+/* ===== HOW IT WORKS STEPS ===== */
 .steps {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 0;
   flex-wrap: wrap;
   max-width: 1100px;
-  margin: 0 auto;
+  margin: 0 auto 60px;
+  gap: 0;
 }
 
 .step {
@@ -395,13 +435,14 @@ nav {
   border-radius: 18px;
   padding: 36px 28px;
   text-align: center;
-  max-width: 230px;
   flex: 1;
   min-width: 180px;
+  max-width: 220px;
   box-shadow: 0 4px 18px rgba(0,0,0,0.06);
   margin: 8px;
 }
 
+/* Numbered circle */
 .step-num {
   width: 52px;
   height: 52px;
@@ -417,8 +458,7 @@ nav {
 }
 
 .step h3 {
-  font-size: 1.15rem;
-  color: #1a1a1a;
+  font-size: 1.1rem;
   margin-bottom: 10px;
 }
 
@@ -427,6 +467,7 @@ nav {
   font-size: 0.92rem;
 }
 
+/* Orange connector line between steps */
 .step-connector {
   width: 40px;
   height: 3px;
@@ -435,83 +476,34 @@ nav {
   border-radius: 2px;
 }
 
-/* ===== CALL TO ACTION ===== */
-#cta {
-  background: linear-gradient(140deg, #d9601a 0%, #b84e12 100%);
+/* CTA box inside How It Works */
+.how-cta {
+  background: #d9601a;
+  color: #fff;
+  border-radius: 20px;
+  padding: 48px 40px;
   text-align: center;
-  color: #fff;
-  padding: 100px 48px;
-}
-
-#cta h2 {
-  color: #fff;
-  font-size: 2.6rem;
-  margin-bottom: 1.2rem;
-}
-
-#cta p {
-  font-size: 1.1rem;
-  max-width: 640px;
-  margin: 0 auto 2.2rem;
-  opacity: 0.93;
-  line-height: 1.75;
-}
-
-.cta-buttons {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 14px;
-  margin-bottom: 2rem;
-}
-
-.btn-white {
-  display: inline-block;
-  background: #fff;
-  color: #d9601a;
-  padding: 14px 32px;
-  border-radius: 32px;
-  text-decoration: none;
-  font-weight: 700;
-  font-size: 1rem;
-  transition: background 0.2s, transform 0.15s;
-}
-
-.btn-white:hover {
-  background: #f5ede6;
-  transform: translateY(-2px);
-}
-
-.btn-outline-white {
-  display: inline-block;
-  background: transparent;
-  color: #fff;
-  padding: 14px 32px;
-  border-radius: 32px;
-  border: 2px solid #fff;
-  text-decoration: none;
-  font-weight: 700;
-  font-size: 1rem;
-  transition: all 0.2s;
-}
-
-.btn-outline-white:hover {
-  background: #fff;
-  color: #d9601a;
-  transform: translateY(-2px);
-}
-
-.cta-nudge {
-  font-size: 1rem;
-  opacity: 0.85;
-  max-width: 520px;
+  max-width: 740px;
   margin: 0 auto;
+}
+
+.how-cta h3 {
+  font-size: 1.7rem;
+  color: #fff;
+  margin-bottom: 14px;
+}
+
+.how-cta p {
+  font-size: 1.05rem;
+  opacity: 0.93;
+  margin-bottom: 24px;
+  line-height: 1.7;
 }
 
 /* ===== FOOTER ===== */
 footer {
   background: #1a1a1a;
-  color: #999;
+  color: #888;
   text-align: center;
   padding: 36px 48px;
   font-size: 0.95rem;
@@ -519,6 +511,12 @@ footer {
 }
 
 /* ===== RESPONSIVE ===== */
+@media (max-width: 1000px) {
+  .pet-grid { grid-template-columns: repeat(2, 1fr); }
+  .facts-grid { grid-template-columns: repeat(2, 1fr); }
+  .tips-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
 @media (max-width: 860px) {
   #intro {
     flex-direction: column;
@@ -527,17 +525,9 @@ footer {
     min-height: unset;
   }
 
-  .intro-text h1 {
-    font-size: 2.2rem;
-  }
-
-  .intro-art img {
-    width: 100%;
-  }
-
-  .intro-buttons {
-    justify-content: center;
-  }
+  .intro-text h1 { font-size: 2.2rem; }
+  .intro-art img { width: 100%; }
+  .btn-row { justify-content: center; }
 
   nav {
     flex-direction: column;
@@ -546,20 +536,20 @@ footer {
   }
 
   .nav-links {
-    flex-wrap: wrap;
     justify-content: center;
     gap: 14px;
   }
 
-  section {
-    padding: 60px 24px;
-  }
+  section { padding: 60px 24px; }
 
-  .step-connector {
-    display: none;
-  }
+  .step-connector { display: none; }
+  .steps { flex-direction: column; align-items: center; }
+}
 
-  #cta h2 {
-    font-size: 2rem;
-  }
+@media (max-width: 600px) {
+  .pet-grid { grid-template-columns: 1fr; }
+  .facts-grid { grid-template-columns: 1fr; }
+  .tips-grid { grid-template-columns: 1fr; }
+  h1 { font-size: 1.9rem; }
+  h2 { font-size: 1.6rem; }
 }

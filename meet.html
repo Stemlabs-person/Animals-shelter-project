@@ -3,16 +3,269 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>FurAndFound — Meet the Pets</title>
+  <title>FurAndFound — Browse Breeds</title>
   <link rel="stylesheet" href="style.css" />
+  <style>
+
+    /* PAGE HEADER */
+    .breeds-header {
+      background: linear-gradient(135deg, #1a1a1a 0%, #2e1a0e 100%);
+      color: #fff;
+      text-align: center;
+      padding: 70px 48px 50px;
+    }
+
+    .breeds-header h2 {
+      color: #fff;
+      font-size: 2.6rem;
+      margin-bottom: 0.6rem;
+    }
+
+    .breeds-header p {
+      color: #bbb;
+      font-size: 1.05rem;
+      max-width: 560px;
+      margin: 0 auto 32px;
+    }
+
+    /* FILTER TABS */
+    .filter-tabs {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .filter-tab {
+      background: transparent;
+      border: 2px solid #555;
+      color: #bbb;
+      padding: 10px 28px;
+      border-radius: 32px;
+      font-size: 1rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s;
+      font-family: inherit;
+    }
+
+    .filter-tab:hover {
+      border-color: #d9601a;
+      color: #d9601a;
+    }
+
+    .filter-tab.active {
+      background: #d9601a;
+      border-color: #d9601a;
+      color: #fff;
+    }
+
+    /* FEATURED BREED */
+    .featured-section {
+      padding: 60px 48px 0;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .featured-label {
+      display: inline-block;
+      background: #fdebd8;
+      color: #d9601a;
+      font-size: 0.78rem;
+      font-weight: 800;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      padding: 5px 14px;
+      border-radius: 20px;
+      margin-bottom: 16px;
+    }
+
+    .featured-card {
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      border-radius: 22px;
+      overflow: hidden;
+      box-shadow: 0 8px 40px rgba(0,0,0,0.12);
+      background: #fff;
+      margin-bottom: 16px;
+    }
+
+    .featured-card img {
+      width: 100%;
+      height: 380px;
+      object-fit: cover;
+    }
+
+    .featured-info {
+      padding: 48px 40px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .featured-info h3 {
+      font-size: 2rem;
+      color: #1a1a1a;
+      margin-bottom: 8px;
+    }
+
+    .trait-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 18px;
+    }
+
+    .trait-tag {
+      background: #fdf7f0;
+      color: #d9601a;
+      font-size: 0.8rem;
+      font-weight: 700;
+      padding: 5px 14px;
+      border-radius: 20px;
+      border: 1px solid #fdebd8;
+    }
+
+    .featured-info p {
+      color: #555;
+      font-size: 1rem;
+      line-height: 1.75;
+      margin-bottom: 28px;
+    }
+
+    .featured-info .ideal-for {
+      font-size: 0.88rem;
+      color: #888;
+      margin-bottom: 24px;
+    }
+
+    .featured-info .ideal-for strong {
+      color: #333;
+    }
+
+    /* BREED LIST — horizontal cards */
+    .breeds-list-section {
+      padding: 40px 48px 80px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .breeds-list-section h3 {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: #888;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin-bottom: 20px;
+      padding-bottom: 12px;
+      border-bottom: 2px solid #f0f0f0;
+    }
+
+    .breed-list {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    /* Horizontal breed card */
+    .breed-row {
+      display: grid;
+      grid-template-columns: 200px 1fr auto;
+      align-items: center;
+      gap: 28px;
+      background: #fff;
+      border-radius: 18px;
+      overflow: hidden;
+      box-shadow: 0 3px 16px rgba(0,0,0,0.07);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .breed-row:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 28px rgba(0,0,0,0.11);
+    }
+
+    .breed-row img {
+      width: 200px;
+      height: 140px;
+      object-fit: cover;
+    }
+
+    .breed-row-info {
+      padding: 20px 0;
+    }
+
+    .breed-row-info h4 {
+      font-size: 1.25rem;
+      color: #1a1a1a;
+      margin-bottom: 6px;
+    }
+
+    .breed-row-info p {
+      color: #666;
+      font-size: 0.92rem;
+      line-height: 1.6;
+      margin-bottom: 10px;
+    }
+
+    .breed-row-action {
+      padding: 0 28px;
+      text-align: center;
+      flex-shrink: 0;
+    }
+
+    .breed-type-badge {
+      display: inline-block;
+      font-size: 0.75rem;
+      font-weight: 800;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      padding: 3px 10px;
+      border-radius: 12px;
+      margin-bottom: 8px;
+    }
+
+    .badge-dog {
+      background: #e8f4fd;
+      color: #2471a3;
+    }
+
+    .badge-cat {
+      background: #fdf0f8;
+      color: #a93226;
+    }
+
+    /* hidden by filter */
+    .breed-row.hidden {
+      display: none;
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 860px) {
+      .featured-card { grid-template-columns: 1fr; }
+      .featured-card img { height: 240px; }
+      .featured-info { padding: 28px 24px; }
+      .breeds-header { padding: 50px 24px 36px; }
+      .featured-section { padding: 40px 24px 0; }
+      .breeds-list-section { padding: 32px 24px 60px; }
+    }
+
+    @media (max-width: 620px) {
+      .breed-row { grid-template-columns: 1fr; }
+      .breed-row img { width: 100%; height: 180px; }
+      .breed-row-info { padding: 0 20px; }
+      .breed-row-action { padding: 16px 20px; text-align: left; }
+    }
+
+  </style>
 </head>
 <body>
 
   <nav>
-    <div class="nav-logo">🐾 FurAndFound</div>
+    <a href="index.html" class="nav-logo">🐾 FurAndFound</a>
     <ul class="nav-links">
       <li><a href="index.html">Home</a></li>
-      <li><a href="meet.html" class="nav-active">Meet the Pets</a></li>
+      <li><a href="meet.html" class="nav-active">Browse Breeds</a></li>
       <li><a href="why.html">Why Adopt</a></li>
       <li><a href="care.html">Pet Care</a></li>
       <li><a href="how.html">How It Works</a></li>
@@ -21,78 +274,164 @@
     </ul>
   </nav>
 
-  <section id="meet">
+  <!-- DARK HEADER WITH FILTER TABS -->
+  <div class="breeds-header">
     <h2>Browse by Breed</h2>
-    <p class="section-sub">Explore different dog and cat breeds available for adoption. Click a breed to see real animals waiting for a home near you.</p>
-    <div class="pet-grid">
+    <p>Explore dog and cat breeds available for adoption. Click any breed to see real animals waiting for a home near you.</p>
+    <div class="filter-tabs">
+      <button class="filter-tab active" onclick="filterBreeds('all', this)">🐾 All Animals</button>
+      <button class="filter-tab" onclick="filterBreeds('dog', this)">🐶 Dogs Only</button>
+      <button class="filter-tab" onclick="filterBreeds('cat', this)">🐱 Cats Only</button>
+    </div>
+  </div>
 
-      <div class="pet-card">
-        <img src="https://images.unsplash.com/photo-1552053831-71594a27632d?w=400&h=220&fit=crop" alt="Golden Retriever dog" />
-        <div class="pet-info">
-          <h3>Golden Retriever</h3>
-          <span class="pet-tag">Dog · Friendly · Great with kids & seniors</span>
-          <p>Golden Retrievers are gentle, playful, and love everyone they meet. They know basic commands and make wonderful family companions.</p>
-          <a href="https://www.petfinder.com/search/dogs-for-adoption/ca/on/northyork/?breed=Golden%20Retriever&includeOutOfTown=true" target="_blank" rel="noopener" class="btn-adopt">Adopt a Golden Retriever</a>
+  <!-- FEATURED BREED -->
+  <div class="featured-section">
+    <span class="featured-label">⭐ Featured Breed</span>
+    <div class="featured-card">
+      <img src="https://images.unsplash.com/photo-1552053831-71594a27632d?w=700&h=380&fit=crop" alt="Golden Retriever" />
+      <div class="featured-info">
+        <h3>Golden Retriever</h3>
+        <div class="trait-tags">
+          <span class="trait-tag">Friendly</span>
+          <span class="trait-tag">Gentle</span>
+          <span class="trait-tag">Playful</span>
+          <span class="trait-tag">Easy to Train</span>
         </div>
+        <p>
+          Golden Retrievers are one of the most beloved family dogs for a reason.
+          They are patient with children, kind to seniors, and get along with nearly everyone they meet.
+          Most are already vaccinated and know basic commands when adopted from a shelter.
+        </p>
+        <p class="ideal-for"><strong>Ideal for:</strong> Families, first-time dog owners, seniors, kids of all ages</p>
+        <a href="https://www.petfinder.com/search/dogs-for-adoption/ca/on/northyork/?breed=Golden%20Retriever&includeOutOfTown=true" target="_blank" rel="noopener" class="btn-primary">Find a Golden Retriever Near You</a>
       </div>
+    </div>
+  </div>
 
-      <div class="pet-card">
-        <img src="https://images.unsplash.com/photo-1574144611937-0df059b5ef3e?w=400&h=220&fit=crop" alt="Tabby cat" />
-        <div class="pet-info">
-          <h3>Tabby</h3>
-          <span class="pet-tag">Cat · Affectionate · Great for apartments</span>
-          <p>Tabbies are curious, warm, and love sunny windowsills and lap cuddles. They are easygoing and great for calm households.</p>
+  <!-- BREED LIST -->
+  <div class="breeds-list-section">
+    <h3>All Breeds</h3>
+    <div class="breed-list">
+
+      <!-- Tabby -->
+      <div class="breed-row" data-type="cat">
+        <img src="https://images.unsplash.com/photo-1574144611937-0df059b5ef3e?w=200&h=140&fit=crop" alt="Tabby cat" />
+        <div class="breed-row-info">
+          <span class="breed-type-badge badge-cat">Cat</span>
+          <h4>Tabby</h4>
+          <div class="trait-tags">
+            <span class="trait-tag">Affectionate</span>
+            <span class="trait-tag">Curious</span>
+            <span class="trait-tag">Low Maintenance</span>
+          </div>
+          <p>Tabbies are warm, curious, and love sunny windowsills and lap cuddles. Great for apartments and calm households of any size.</p>
+        </div>
+        <div class="breed-row-action">
           <a href="https://www.petfinder.com/search/cats-for-adoption/ca/on/northyork/?breed=Tabby&includeOutOfTown=true" target="_blank" rel="noopener" class="btn-adopt">Adopt a Tabby</a>
         </div>
       </div>
 
-      <div class="pet-card">
-        <img src="https://images.unsplash.com/photo-1537151608828-ea2b11777ee8?w=400&h=220&fit=crop" alt="Beagle dog" />
-        <div class="pet-info">
-          <h3>Beagle</h3>
-          <span class="pet-tag">Dog · Loyal · Good for all ages</span>
-          <p>Beagles are loyal, calm, and love daily walks and couch cuddles. They are typically spayed, microchipped, and up to date on shots.</p>
+      <!-- Beagle -->
+      <div class="breed-row" data-type="dog">
+        <img src="https://images.unsplash.com/photo-1537151608828-ea2b11777ee8?w=200&h=140&fit=crop" alt="Beagle dog" />
+        <div class="breed-row-info">
+          <span class="breed-type-badge badge-dog">Dog</span>
+          <h4>Beagle</h4>
+          <div class="trait-tags">
+            <span class="trait-tag">Loyal</span>
+            <span class="trait-tag">Calm</span>
+            <span class="trait-tag">Good for All Ages</span>
+          </div>
+          <p>Beagles are loyal, gentle, and love daily walks and couch cuddles. Typically spayed, microchipped, and up to date on all shots.</p>
+        </div>
+        <div class="breed-row-action">
           <a href="https://www.petfinder.com/search/dogs-for-adoption/ca/on/northyork/?breed=Beagle&includeOutOfTown=true" target="_blank" rel="noopener" class="btn-adopt">Adopt a Beagle</a>
         </div>
       </div>
 
-      <div class="pet-card">
-        <img src="https://images.unsplash.com/photo-1529778873920-4da4926a72c2?w=400&h=220&fit=crop" alt="Tuxedo cat" />
-        <div class="pet-info">
-          <h3>Tuxedo Cat</h3>
-          <span class="pet-tag">Cat · Playful · Gets along with other cats</span>
-          <p>Tuxedo cats are energetic, charming, and full of personality. They love interactive toys and get along well with other pets and people.</p>
+      <!-- Tuxedo Cat -->
+      <div class="breed-row" data-type="cat">
+        <img src="https://images.unsplash.com/photo-1529778873920-4da4926a72c2?w=200&h=140&fit=crop" alt="Tuxedo cat" />
+        <div class="breed-row-info">
+          <span class="breed-type-badge badge-cat">Cat</span>
+          <h4>Tuxedo Cat</h4>
+          <div class="trait-tags">
+            <span class="trait-tag">Playful</span>
+            <span class="trait-tag">Charming</span>
+            <span class="trait-tag">Social</span>
+          </div>
+          <p>Tuxedo cats are energetic, full of personality, and love interactive toys. They get along well with other pets and people.</p>
+        </div>
+        <div class="breed-row-action">
           <a href="https://www.petfinder.com/search/cats-for-adoption/ca/on/northyork/?breed=Domestic%20Short%20Hair&includeOutOfTown=true" target="_blank" rel="noopener" class="btn-adopt">Adopt a Tuxedo Cat</a>
         </div>
       </div>
 
-      <div class="pet-card">
-        <img src="https://images.unsplash.com/photo-1587300003388-59208cc962cb?w=400&h=220&fit=crop" alt="Labrador dog" />
-        <div class="pet-info">
-          <h3>Labrador Retriever</h3>
-          <span class="pet-tag">Dog · Calm · Perfect for seniors & families</span>
-          <p>Labradors are calm, well-trained, and adaptable. They love slow walks and thrive in quiet homes as well as active families.</p>
+      <!-- Labrador -->
+      <div class="breed-row" data-type="dog">
+        <img src="https://images.unsplash.com/photo-1587300003388-59208cc962cb?w=200&h=140&fit=crop" alt="Labrador dog" />
+        <div class="breed-row-info">
+          <span class="breed-type-badge badge-dog">Dog</span>
+          <h4>Labrador Retriever</h4>
+          <div class="trait-tags">
+            <span class="trait-tag">Calm</span>
+            <span class="trait-tag">Adaptable</span>
+            <span class="trait-tag">Great for Seniors</span>
+          </div>
+          <p>Labradors are calm, well-trained, and adaptable. They thrive in quiet homes and love slow walks — perfect for seniors or relaxed families.</p>
+        </div>
+        <div class="breed-row-action">
           <a href="https://www.petfinder.com/search/dogs-for-adoption/ca/on/northyork/?breed=Labrador%20Retriever&includeOutOfTown=true" target="_blank" rel="noopener" class="btn-adopt">Adopt a Labrador</a>
         </div>
       </div>
 
-      <div class="pet-card">
-        <img src="https://images.unsplash.com/photo-1495360010541-f48722b34f7d?w=400&h=220&fit=crop" alt="Grey cat" />
-        <div class="pet-info">
-          <h3>Grey Shorthair</h3>
-          <span class="pet-tag">Cat · Gentle · Best in quiet homes</span>
-          <p>Grey Shorthairs are calm, sweet, and deeply loyal once they trust you. They prefer peaceful spaces and will become your most devoted companion.</p>
+      <!-- Grey Shorthair -->
+      <div class="breed-row" data-type="cat">
+        <img src="https://images.unsplash.com/photo-1495360010541-f48722b34f7d?w=200&h=140&fit=crop" alt="Grey shorthair cat" />
+        <div class="breed-row-info">
+          <span class="breed-type-badge badge-cat">Cat</span>
+          <h4>Grey Shorthair</h4>
+          <div class="trait-tags">
+            <span class="trait-tag">Gentle</span>
+            <span class="trait-tag">Loyal</span>
+            <span class="trait-tag">Quiet</span>
+          </div>
+          <p>Grey Shorthairs are calm and deeply loyal once they trust you. They prefer peaceful spaces and become incredibly devoted companions.</p>
+        </div>
+        <div class="breed-row-action">
           <a href="https://www.petfinder.com/search/cats-for-adoption/ca/on/northyork/?breed=Domestic%20Short%20Hair&includeOutOfTown=true" target="_blank" rel="noopener" class="btn-adopt">Adopt a Grey Shorthair</a>
         </div>
       </div>
 
     </div>
-  </section>
+  </div>
 
   <footer>
     <p>🐾 FurAndFound Animal Shelter · Connecting pets with the people who care</p>
     <p>Built with love for dogs, cats, kids, adults, and seniors everywhere.</p>
   </footer>
+
+  <script>
+    function filterBreeds(type, btn) {
+      // Update active tab
+      document.querySelectorAll('.filter-tab').forEach(function(t) { t.classList.remove('active'); });
+      btn.classList.add('active');
+
+      // Show/hide cards
+      document.querySelectorAll('.breed-row').forEach(function(row) {
+        if (type === 'all' || row.dataset.type === type) {
+          row.classList.remove('hidden');
+        } else {
+          row.classList.add('hidden');
+        }
+      });
+
+      // Show/hide featured (always dog, so hide when cats only)
+      var featured = document.querySelector('.featured-section');
+      featured.style.display = (type === 'cat') ? 'none' : 'block';
+    }
+  </script>
 
 </body>
 </html>

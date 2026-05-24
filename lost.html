@@ -379,11 +379,11 @@
     .share-facebook { background: #1877f2; }
     .share-twitter  { background: #000; }
     .share-whatsapp { background: #25d366; }
-    .share-reddit   { background: #ff4500; }
+    .share-telegram { background: #0088cc; }
     .share-nextdoor { background: #00b246; }
-    .share-craigslist{ background: #6e3fad; }
+    .share-copy     { background: #444; }
     .share-email    { background: #555; }
-    .share-tumblr   { background: #35465c; }
+    .share-sms      { background: #2dbe60; }
 
     /* EMAIL MODAL */
     #email-modal-overlay {
@@ -568,20 +568,20 @@
             <a id="share-whatsapp" class="share-btn share-whatsapp" target="_blank" rel="noopener">
               <span class="share-icon">💬</span> WhatsApp
             </a>
-            <a id="share-reddit" class="share-btn share-reddit" target="_blank" rel="noopener">
-              <span class="share-icon">🤖</span> Reddit r/lostpets
+            <a id="share-telegram" class="share-btn share-telegram" target="_blank" rel="noopener">
+              <span class="share-icon">✈️</span> Telegram
             </a>
             <a href="https://nextdoor.com/lost_and_found/" target="_blank" rel="noopener" class="share-btn share-nextdoor">
               <span class="share-icon">🏘️</span> Nextdoor Lost &amp; Found
             </a>
-            <a id="share-craigslist" class="share-btn share-craigslist" target="_blank" rel="noopener">
-              <span class="share-icon">📋</span> Craigslist Lost &amp; Found
-            </a>
+            <button id="share-copy" class="share-btn share-copy" onclick="copyPosterText()">
+              <span class="share-icon">📋</span> Copy Text
+            </button>
             <a id="share-email" class="share-btn share-email">
               <span class="share-icon">✉️</span> Email a Group
             </a>
-            <a id="share-tumblr" class="share-btn share-tumblr" target="_blank" rel="noopener">
-              <span class="share-icon">📝</span> Post on Tumblr
+            <a id="share-sms" class="share-btn share-sms">
+              <span class="share-icon">💬</span> SMS / Text
             </a>
           </div>
         </div>
@@ -617,6 +617,28 @@
         <button class="btn-cancel-email" onclick="document.getElementById('email-modal-overlay').classList.remove('open')">Cancel</button>
         <button class="btn-send-email" onclick="sendGroupEmail()">📨 Open in Email Client</button>
       </div>
+    </div>
+  </div>
+
+  <div class="further-reading">
+    <h4>Further Reading</h4>
+    <div class="further-reading-grid">
+      <a href="https://www.humanesociety.org/resources/what-do-if-you-lose-your-pet" target="_blank" rel="noopener" class="further-reading-card">
+        <span class="fr-icon">🔍</span>
+        <div class="fr-text"><strong>What to Do If You Lose Your Pet</strong><span>Humane Society — a step-by-step action plan</span></div>
+      </a>
+      <a href="https://www.aspca.org/pet-care/general-pet-care/microchipping-your-pet" target="_blank" rel="noopener" class="further-reading-card">
+        <span class="fr-icon">📡</span>
+        <div class="fr-text"><strong>Why Microchip Your Pet</strong><span>ASPCA — how microchipping works and why it matters</span></div>
+      </a>
+      <a href="https://www.akc.org/expert-advice/advice/how-to-find-a-lost-dog/" target="_blank" rel="noopener" class="further-reading-card">
+        <span class="fr-icon">🐕</span>
+        <div class="fr-text"><strong>How to Find a Lost Dog</strong><span>AKC — proven search strategies from experts</span></div>
+      </a>
+      <a href="https://www.humanesociety.org/resources/keeping-your-pet-safe" target="_blank" rel="noopener" class="further-reading-card">
+        <span class="fr-icon">🔒</span>
+        <div class="fr-text"><strong>Keeping Your Pet Safe</strong><span>Humane Society — prevention tips so it doesn't happen again</span></div>
+      </a>
     </div>
   </div>
 
@@ -720,20 +742,38 @@
       document.getElementById('share-whatsapp').href =
         `https://wa.me/?text=${enc}`;
 
-      document.getElementById('share-reddit').href =
-        `https://www.reddit.com/r/lostpets/submit?title=${encodeURIComponent(`LOST ${d.type}: ${d.name} — ${d.location}`)}&text=${enc}`;
+      document.getElementById('share-telegram').href =
+        `https://t.me/share/url?url=${encodeURIComponent(window.location.href)}&text=${enc}`;
 
-      document.getElementById('share-craigslist').href =
-        `https://post.craigslist.org/c/laf`;
-
-      document.getElementById('share-tumblr').href =
-        `https://www.tumblr.com/share/text?title=${encodeURIComponent(`LOST ${d.type}: ${d.name}`)}&body=${enc}`;
+      document.getElementById('share-sms').href =
+        `sms:?body=${enc}`;
 
       document.getElementById('share-email').removeAttribute('href');
       document.getElementById('share-email').onclick = function(e) {
         e.preventDefault();
         openEmailModal(d, text);
       };
+    }
+
+    function copyPosterText() {
+      if (!currentPosterData) return;
+      const btn = document.getElementById('share-copy');
+      const d = currentPosterData;
+      const parsedDate = d.date ? new Date(d.date + 'T00:00:00') : null;
+      const formattedDate = parsedDate && !isNaN(parsedDate) ? parsedDate.toLocaleDateString('en-US', { year:'numeric', month:'long', day:'numeric' }) : '';
+      const text = [
+        `🚨 LOST ${d.type.toUpperCase()}: ${d.name}`,
+        d.breed ? `Breed: ${d.breed}` : '',
+        d.color ? `Colour: ${d.color}` : '',
+        `Last seen: ${d.location}${formattedDate ? ' on ' + formattedDate : ''}`,
+        d.desc ? d.desc : '',
+        d.reward ? `💰 $${d.reward} Reward` : '',
+        `📞 Contact: ${d.contact}`
+      ].filter(Boolean).join('\n');
+      navigator.clipboard.writeText(text).then(() => {
+        btn.innerHTML = '<span class="share-icon">✅</span> Copied!';
+        setTimeout(() => { btn.innerHTML = '<span class="share-icon">📋</span> Copy Text'; }, 2000);
+      });
     }
 
     function openEmailModal(d, bodyText) {

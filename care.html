@@ -5,6 +5,37 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>FurAndFound — Pet Care</title>
   <link rel="stylesheet" href="style.css" />
+  <style>
+    /* ── Care page: sage green / warm cream theme ── */
+    body { background: #f7fbf8; }
+
+    section { background: #f7fbf8; }
+    section:nth-child(even) { background: #edf5f0; }
+
+    h2 { color: #2d5a3d; }
+
+    .section-sub { color: #6a8f76; }
+
+    .tip-card {
+      background: #fff;
+      border-top: 4px solid #7ab893;
+      box-shadow: 0 4px 20px rgba(80,140,100,0.08);
+    }
+    .tip-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 28px rgba(80,140,100,0.14);
+      border-top-color: #4a8a63;
+    }
+    .tip-card h3 { color: #2d5a3d; }
+
+    .further-reading {
+      background: #edf5f0;
+      border-top-color: #c2ddc9;
+    }
+    .further-reading h4 { color: #4a8a63; }
+    .further-reading-card { border-color: #c2ddc9; background: #f7fbf8; }
+    .further-reading-card:hover { border-color: #4a8a63; box-shadow: 0 2px 12px rgba(74,138,99,0.12); }
+  </style>
 </head>
 <body>
 
@@ -65,6 +96,28 @@
 
     </div>
   </section>
+
+  <div class="further-reading">
+    <h4>Further Reading</h4>
+    <div class="further-reading-grid">
+      <a href="https://www.aspca.org/pet-care/dog-care" target="_blank" rel="noopener" class="further-reading-card">
+        <span class="fr-icon">🐶</span>
+        <div class="fr-text"><strong>Dog Care Guide</strong><span>ASPCA — nutrition, exercise, grooming and health</span></div>
+      </a>
+      <a href="https://www.aspca.org/pet-care/cat-care" target="_blank" rel="noopener" class="further-reading-card">
+        <span class="fr-icon">🐱</span>
+        <div class="fr-text"><strong>Cat Care Guide</strong><span>ASPCA — diet, enrichment, and vet essentials</span></div>
+      </a>
+      <a href="https://www.avma.org/resources-tools/pet-owners/petcare/vaccination" target="_blank" rel="noopener" class="further-reading-card">
+        <span class="fr-icon">💉</span>
+        <div class="fr-text"><strong>Pet Vaccination Guide</strong><span>AVMA — which vaccines your pet needs and when</span></div>
+      </a>
+      <a href="https://www.humanesociety.org/resources/how-keep-your-pet-healthy" target="_blank" rel="noopener" class="further-reading-card">
+        <span class="fr-icon">🏥</span>
+        <div class="fr-text"><strong>Keeping Your Pet Healthy</strong><span>Humane Society — preventive care tips from vets</span></div>
+      </a>
+    </div>
+  </div>
 
   <footer>
     <p>🐾 FurAndFound Animal Shelter · Connecting pets with the people who care</p>

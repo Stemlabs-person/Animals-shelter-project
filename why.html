@@ -5,6 +5,32 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>FurAndFound — Why Adopt</title>
   <link rel="stylesheet" href="style.css" />
+  <style>
+    /* ── Why Adopt page: soft blush rose theme ── */
+    body { background: #fff7f8; }
+
+    section { background: #fff7f8; }
+    section:nth-child(even) { background: #fdeef1; }
+
+    h2 { color: #8b3a52; }
+
+    .section-sub { color: #b87080; }
+
+    .fact-card { border-top: 4px solid #e8a0b0; box-shadow: 0 4px 20px rgba(180,80,100,0.07); }
+    .fact-num { color: #c05070; }
+
+    .awareness-box {
+      background: linear-gradient(135deg, #c05070 0%, #a03858 100%);
+    }
+
+    .further-reading {
+      background: #fdeef1;
+      border-top-color: #f0c8d4;
+    }
+    .further-reading h4 { color: #c05070; }
+    .further-reading-card { border-color: #f0c8d4; background: #fff7f8; }
+    .further-reading-card:hover { border-color: #c05070; box-shadow: 0 2px 12px rgba(192,80,112,0.12); }
+  </style>
 </head>
 <body>
 
@@ -55,6 +81,28 @@
       <p id="share-msg" style="display:none; margin-top:14px; font-size:1rem; font-weight:600;">✅ Link copied! Paste it and send it to a friend or family member 🐾</p>
     </div>
   </section>
+
+  <div class="further-reading">
+    <h4>Further Reading</h4>
+    <div class="further-reading-grid">
+      <a href="https://www.aspca.org/adopt/why-adopt-pet" target="_blank" rel="noopener" class="further-reading-card">
+        <span class="fr-icon">🐾</span>
+        <div class="fr-text"><strong>Why Adopt, Not Shop?</strong><span>ASPCA — the real difference adoption makes</span></div>
+      </a>
+      <a href="https://www.humanesociety.org/resources/adopting-vs-buying-pet" target="_blank" rel="noopener" class="further-reading-card">
+        <span class="fr-icon">🏠</span>
+        <div class="fr-text"><strong>Adopt vs Buy</strong><span>Humane Society — a breakdown of the key differences</span></div>
+      </a>
+      <a href="https://www.psychologytoday.com/us/blog/animals-and-us/201504/the-health-benefits-pets" target="_blank" rel="noopener" class="further-reading-card">
+        <span class="fr-icon">🧠</span>
+        <div class="fr-text"><strong>Health Benefits of Pets</strong><span>Psychology Today — how pets improve your wellbeing</span></div>
+      </a>
+      <a href="https://www.avma.org/resources-tools/pet-owners/petcare/human-animal-bond" target="_blank" rel="noopener" class="further-reading-card">
+        <span class="fr-icon">❤️</span>
+        <div class="fr-text"><strong>The Human–Animal Bond</strong><span>AVMA — science behind why pets matter so much</span></div>
+      </a>
+    </div>
+  </div>
 
   <footer>
     <p>🐾 FurAndFound Animal Shelter · Connecting pets with the people who care</p>

@@ -5,6 +5,20 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>FurAndFound — Rescue, Adopt, Love</title>
   <link rel="stylesheet" href="style.css" />
+  <style>
+    /* ── Home page: warm golden honey theme ── */
+    body { background: #fffdf9; }
+
+    #intro { background: linear-gradient(140deg, #fffdf5 0%, #fde9c8 100%); }
+
+    .further-reading {
+      background: #fef6e8;
+      border-top-color: #f5dfa8;
+    }
+    .further-reading h4 { color: #b8740a; }
+    .further-reading-card { border-color: #f5dfa8; background: #fffdf9; }
+    .further-reading-card:hover { border-color: #d9601a; box-shadow: 0 2px 12px rgba(217,96,26,0.10); }
+  </style>
 </head>
 <body>
 
@@ -45,6 +59,28 @@
       />
     </div>
   </section>
+
+  <div class="further-reading">
+    <h4>Further Reading</h4>
+    <div class="further-reading-grid">
+      <a href="https://www.aspca.org/adopt/why-adopt-pet" target="_blank" rel="noopener" class="further-reading-card">
+        <span class="fr-icon">🐾</span>
+        <div class="fr-text"><strong>Why Adopt a Pet?</strong><span>ASPCA — the case for giving a shelter animal a home</span></div>
+      </a>
+      <a href="https://www.humanesociety.org/resources/pet-care" target="_blank" rel="noopener" class="further-reading-card">
+        <span class="fr-icon">❤️</span>
+        <div class="fr-text"><strong>Pet Care Basics</strong><span>Humane Society — feeding, vet visits, and more</span></div>
+      </a>
+      <a href="https://www.petfinder.com/animal-shelters-and-rescues/pet-adoption-tips/" target="_blank" rel="noopener" class="further-reading-card">
+        <span class="fr-icon">📋</span>
+        <div class="fr-text"><strong>Adoption Tips</strong><span>Petfinder — how to choose the right pet for your lifestyle</span></div>
+      </a>
+      <a href="https://www.avma.org/resources-tools/pet-owners" target="_blank" rel="noopener" class="further-reading-card">
+        <span class="fr-icon">🏥</span>
+        <div class="fr-text"><strong>New Owner Guide</strong><span>AVMA — what every new pet owner should know</span></div>
+      </a>
+    </div>
+  </div>
 
   <footer>
     <p>🐾 FurAndFound Animal Shelter · Connecting pets with the people who care</p>

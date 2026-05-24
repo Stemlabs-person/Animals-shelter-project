@@ -6,6 +6,32 @@
   <title>FurAndFound — Browse Breeds</title>
   <link rel="stylesheet" href="style.css" />
   <style>
+    /* ── Browse Breeds page: soft lavender theme ── */
+    body { background: #f8f6ff; }
+
+    section { background: #f8f6ff; }
+    section:nth-child(even) { background: #f0ecff; }
+
+    h2 { color: #3d2e7a; }
+
+    .section-sub { color: #7a6ab0; }
+
+    .pet-card { box-shadow: 0 4px 20px rgba(100,80,200,0.09); }
+    .pet-card:hover { box-shadow: 0 10px 32px rgba(100,80,200,0.16); }
+    .pet-tag { background: #ede8ff; color: #6a52c8; }
+    .pet-info h3 { color: #3d2e7a; }
+    .btn-adopt { background: #6a52c8; }
+    .btn-adopt:hover { background: #5040a8; }
+
+    .further-reading {
+      background: #f0ecff;
+      border-top-color: #d0c8f5;
+    }
+    .further-reading h4 { color: #6a52c8; }
+    .further-reading-card { border-color: #d0c8f5; background: #f8f6ff; }
+    .further-reading-card:hover { border-color: #6a52c8; box-shadow: 0 2px 12px rgba(106,82,200,0.12); }
+  </style>
+  <style>
 
     /* PAGE HEADER */
     .breeds-header {
@@ -404,6 +430,28 @@
         </div>
       </div>
 
+    </div>
+  </div>
+
+  <div class="further-reading">
+    <h4>Further Reading</h4>
+    <div class="further-reading-grid">
+      <a href="https://www.akc.org/dog-breeds/" target="_blank" rel="noopener" class="further-reading-card">
+        <span class="fr-icon">📖</span>
+        <div class="fr-text"><strong>Full Dog Breed Directory</strong><span>AKC — detailed profiles for every recognised breed</span></div>
+      </a>
+      <a href="https://www.petfinder.com/cats/cat-breeds/" target="_blank" rel="noopener" class="further-reading-card">
+        <span class="fr-icon">🐱</span>
+        <div class="fr-text"><strong>Cat Breed Guide</strong><span>Petfinder — find the right cat personality for you</span></div>
+      </a>
+      <a href="https://www.humanesociety.org/resources/how-choose-right-dog" target="_blank" rel="noopener" class="further-reading-card">
+        <span class="fr-icon">🤔</span>
+        <div class="fr-text"><strong>How to Choose the Right Dog</strong><span>Humane Society — matching breed traits to your lifestyle</span></div>
+      </a>
+      <a href="https://www.aspca.org/pet-care/general-pet-care/kids-and-pets" target="_blank" rel="noopener" class="further-reading-card">
+        <span class="fr-icon">👨‍👩‍👧</span>
+        <div class="fr-text"><strong>Pets &amp; Kids</strong><span>ASPCA — choosing family-friendly breeds safely</span></div>
+      </a>
     </div>
   </div>
 

@@ -5,6 +5,34 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>FurAndFound — How It Works</title>
   <link rel="stylesheet" href="style.css" />
+  <style>
+    /* ── How It Works page: calm sky blue theme ── */
+    body { background: #f4f8fd; }
+
+    section { background: #f4f8fd; }
+    section:nth-child(even) { background: #e8f1fb; }
+
+    h2 { color: #1e4f82; }
+
+    .section-sub { color: #5a82b0; }
+
+    .step { border-top: 4px solid #7aaee0; box-shadow: 0 4px 20px rgba(60,120,200,0.08); }
+    .step h3 { color: #1e4f82; }
+    .step-num { background: #3a7abd; }
+    .step-connector { background: #7aaee0; }
+
+    .how-cta {
+      background: linear-gradient(135deg, #3a7abd 0%, #1e5a9a 100%);
+    }
+
+    .further-reading {
+      background: #e8f1fb;
+      border-top-color: #bad3f0;
+    }
+    .further-reading h4 { color: #3a7abd; }
+    .further-reading-card { border-color: #bad3f0; background: #f4f8fd; }
+    .further-reading-card:hover { border-color: #3a7abd; box-shadow: 0 2px 12px rgba(58,122,189,0.12); }
+  </style>
 </head>
 <body>
 
@@ -73,6 +101,28 @@
       </div>
     </div>
   </section>
+
+  <div class="further-reading">
+    <h4>Further Reading</h4>
+    <div class="further-reading-grid">
+      <a href="https://www.petfinder.com/animal-shelters-and-rescues/pet-adoption-tips/" target="_blank" rel="noopener" class="further-reading-card">
+        <span class="fr-icon">📋</span>
+        <div class="fr-text"><strong>Adoption Tips</strong><span>Petfinder — what to expect during the adoption process</span></div>
+      </a>
+      <a href="https://www.aspca.org/adopt/adoption-checklist" target="_blank" rel="noopener" class="further-reading-card">
+        <span class="fr-icon">✅</span>
+        <div class="fr-text"><strong>Adoption Checklist</strong><span>ASPCA — everything to prepare before bringing your pet home</span></div>
+      </a>
+      <a href="https://www.humanesociety.org/resources/what-expect-when-adopting-dog" target="_blank" rel="noopener" class="further-reading-card">
+        <span class="fr-icon">🐶</span>
+        <div class="fr-text"><strong>What to Expect Adopting a Dog</strong><span>Humane Society — first days and settling in</span></div>
+      </a>
+      <a href="https://www.humanesociety.org/resources/adopting-cat" target="_blank" rel="noopener" class="further-reading-card">
+        <span class="fr-icon">🐱</span>
+        <div class="fr-text"><strong>What to Expect Adopting a Cat</strong><span>Humane Society — tips for a smooth transition</span></div>
+      </a>
+    </div>
+  </div>
 
   <footer>
     <p>🐾 FurAndFound Animal Shelter · Connecting pets with the people who care</p>

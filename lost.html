@@ -382,6 +382,56 @@
     .share-pawboost { background: #e03d3d; }
     .share-nextdoor { background: #00b246; }
     .share-petfbi   { background: #3a6bc4; }
+    .share-email    { background: #555; }
+    .share-petfinder{ background: #e8650a; }
+
+    /* EMAIL MODAL */
+    #email-modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.45);
+      z-index: 1000;
+      align-items: center;
+      justify-content: center;
+    }
+    #email-modal-overlay.open { display: flex; }
+    #email-modal {
+      background: #fff;
+      border-radius: 18px;
+      box-shadow: 0 8px 48px rgba(0,0,0,0.22);
+      width: 560px;
+      max-width: 95vw;
+      max-height: 90vh;
+      overflow-y: auto;
+      padding: 32px;
+    }
+    #email-modal h3 { font-size: 1.2rem; margin-bottom: 18px; color: #1a1a1a; }
+    .email-field { margin-bottom: 14px; }
+    .email-field label { font-weight: 600; font-size: 0.88rem; color: #666; display: block; margin-bottom: 4px; }
+    .email-field input, .email-field textarea {
+      width: 100%; padding: 10px 12px; border: 2px solid #e8e8e8; border-radius: 10px;
+      font-size: 0.93rem; font-family: inherit; color: #333; box-sizing: border-box; outline: none; transition: border-color 0.2s;
+    }
+    .email-field input:focus, .email-field textarea:focus { border-color: #d9601a; }
+    .email-field textarea { resize: vertical; min-height: 180px; line-height: 1.6; }
+    .email-suggestions { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 14px; }
+    .email-suggestions span { font-size: 0.82rem; color: #888; font-weight: 600; }
+    .email-tag {
+      background: #fdf7f0; border: 1.5px solid #d9601a; color: #d9601a;
+      border-radius: 20px; padding: 4px 12px; font-size: 0.82rem; font-weight: 600;
+      cursor: pointer; transition: background 0.15s;
+    }
+    .email-tag:hover { background: #fdebd8; }
+    .email-modal-actions { display: flex; gap: 10px; margin-top: 18px; }
+    .email-modal-actions button {
+      flex: 1; padding: 13px; border-radius: 28px; font-size: 0.95rem;
+      font-weight: 700; cursor: pointer; border: none; transition: all 0.2s;
+    }
+    .btn-send-email { background: #d9601a; color: #fff; }
+    .btn-send-email:hover { background: #b84e12; }
+    .btn-cancel-email { background: transparent; border: 2px solid #e8e8e8 !important; color: #888; }
+    .btn-cancel-email:hover { border-color: #ccc !important; color: #555; }
 
     /* PRINT STYLES */
     @media print {
@@ -527,10 +577,45 @@
             <a id="share-petfbi" class="share-btn share-petfbi" target="_blank" rel="noopener">
               <span class="share-icon">🔍</span> Post on Pet FBI
             </a>
+            <a id="share-email" class="share-btn share-email">
+              <span class="share-icon">✉️</span> Email a Group
+            </a>
+            <a id="share-petfinder" class="share-btn share-petfinder" target="_blank" rel="noopener">
+              <span class="share-icon">🐾</span> Report on Petfinder
+            </a>
           </div>
         </div>
       </div>
 
+    </div>
+  </div>
+
+  <!-- EMAIL MODAL -->
+  <div id="email-modal-overlay" onclick="closeEmailModal(event)">
+    <div id="email-modal">
+      <h3>✉️ Email Pet-Finding Groups</h3>
+      <div class="email-field">
+        <label>To (add group emails, separated by commas)</label>
+        <input type="text" id="email-to" placeholder="e.g. lostpets@groups.io, localrescue@example.com" />
+      </div>
+      <div class="email-suggestions">
+        <span>Suggestions:</span>
+        <button class="email-tag" onclick="addEmailTo('lostdogsofamerica@groups.io')">Lost Dogs of America</button>
+        <button class="email-tag" onclick="addEmailTo('helpinglostpets@groups.io')">Helping Lost Pets</button>
+        <button class="email-tag" onclick="addEmailTo('lostcatsnetwork@groups.io')">Lost Cats Network</button>
+      </div>
+      <div class="email-field">
+        <label>Subject</label>
+        <input type="text" id="email-subject" />
+      </div>
+      <div class="email-field">
+        <label>Message</label>
+        <textarea id="email-body"></textarea>
+      </div>
+      <div class="email-modal-actions">
+        <button class="btn-cancel-email" onclick="document.getElementById('email-modal-overlay').classList.remove('open')">Cancel</button>
+        <button class="btn-send-email" onclick="sendGroupEmail()">📨 Open in Email Client</button>
+      </div>
     </div>
   </div>
 
@@ -637,6 +722,40 @@
 
       document.getElementById('share-petfbi').href =
         `https://petfbi.org/report-a-lost-pet/`;
+
+      document.getElementById('share-petfinder').href =
+        `https://www.petfinder.com/lost-and-found/`;
+
+      document.getElementById('share-email').removeAttribute('href');
+      document.getElementById('share-email').onclick = function(e) {
+        e.preventDefault();
+        openEmailModal(d, text);
+      };
+    }
+
+    function openEmailModal(d, bodyText) {
+      document.getElementById('email-subject').value = `Lost ${d.type}: ${d.name} — Please Help`;
+      document.getElementById('email-body').value = bodyText.replace(/\r\n/g, '\n');
+      document.getElementById('email-modal-overlay').classList.add('open');
+    }
+
+    function closeEmailModal(e) {
+      if (e.target === document.getElementById('email-modal-overlay')) {
+        document.getElementById('email-modal-overlay').classList.remove('open');
+      }
+    }
+
+    function addEmailTo(address) {
+      const input = document.getElementById('email-to');
+      const current = input.value.trim();
+      input.value = current ? current + ', ' + address : address;
+    }
+
+    function sendGroupEmail() {
+      const to      = document.getElementById('email-to').value.trim();
+      const subject = document.getElementById('email-subject').value;
+      const body    = document.getElementById('email-body').value;
+      window.location.href = `mailto:${to}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
     }
   </script>
 

@@ -379,7 +379,6 @@
     .share-facebook { background: #1877f2; }
     .share-twitter  { background: #000; }
     .share-whatsapp { background: #25d366; }
-    .share-telegram { background: #0088cc; }
     .share-nextdoor { background: #00b246; }
     .share-copy     { background: #444; }
     .share-email    { background: #555; }
@@ -433,6 +432,86 @@
     .btn-cancel-email { background: transparent; border: 2px solid #e8e8e8 !important; color: #888; }
     .btn-cancel-email:hover { border-color: #ccc !important; color: #555; }
 
+    /* HERO BANNER */
+    #lost-hero {
+      background: linear-gradient(135deg, #1a1a2e 0%, #2c1a0e 50%, #4a1800 100%);
+      padding: 70px 60px 60px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    #lost-hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse at 20% 50%, rgba(217,96,26,0.25) 0%, transparent 55%),
+        radial-gradient(ellipse at 80% 30%, rgba(255,140,60,0.15) 0%, transparent 50%);
+      pointer-events: none;
+    }
+
+    #lost-hero .hero-content {
+      position: relative;
+      z-index: 1;
+      max-width: 680px;
+      margin: 0 auto;
+    }
+
+    #lost-hero .hero-tag {
+      display: inline-block;
+      background: rgba(217,96,26,0.35);
+      border: 1px solid rgba(217,96,26,0.6);
+      color: #ffb07a;
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      padding: 6px 16px;
+      border-radius: 20px;
+      margin-bottom: 20px;
+    }
+
+    #lost-hero h1 {
+      font-size: 3rem;
+      color: #fff;
+      line-height: 1.15;
+      margin-bottom: 16px;
+      text-shadow: 0 2px 20px rgba(0,0,0,0.4);
+    }
+
+    #lost-hero h1 em {
+      font-style: normal;
+      color: #ff9a50;
+    }
+
+    #lost-hero p {
+      font-size: 1.05rem;
+      color: rgba(255,255,255,0.75);
+      line-height: 1.8;
+      margin-bottom: 32px;
+    }
+
+    .hero-steps {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .hero-step-pill {
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.2);
+      color: rgba(255,255,255,0.85);
+      border-radius: 24px;
+      padding: 8px 18px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
     /* PRINT STYLES */
     @media print {
       nav, footer, .poster-form, .poster-preview-wrap h3,
@@ -442,12 +521,17 @@
       #poster { border: 3px solid #000; box-shadow: none; }
     }
 
+    #lost-page > h2,
+    #lost-page > .section-sub { display: none; }
+
     @media (max-width: 860px) {
       .lost-layout { grid-template-columns: 1fr; }
       .poster-preview-wrap { position: static; }
       #lost-page { padding: 40px 24px; }
       #board-section { padding: 40px 24px; }
       .form-row { grid-template-columns: 1fr; }
+      #lost-hero { padding: 50px 24px 44px; }
+      #lost-hero h1 { font-size: 2.1rem; }
     }
   </style>
 </head>
@@ -465,6 +549,23 @@
       <li><a href="https://www.petfinder.com" target="_blank" rel="noopener" class="nav-btn">Adopt Now</a></li>
     </ul>
   </nav>
+
+  <!-- HERO BANNER -->
+  <div id="lost-hero">
+    <div class="hero-content">
+      <span class="hero-tag">🔍 Lost Pet Centre</span>
+      <h1>Let's Bring Your Pet <em>Back Home</em></h1>
+      <p>
+        Fill in your pet's details below to generate a shareable poster, then spread the word
+        across your community — every share increases the chance of a reunion.
+      </p>
+      <div class="hero-steps">
+        <div class="hero-step-pill"><span>1️⃣</span> Fill in the form</div>
+        <div class="hero-step-pill"><span>2️⃣</span> Generate your poster</div>
+        <div class="hero-step-pill"><span>3️⃣</span> Share everywhere</div>
+      </div>
+    </div>
+  </div>
 
   <!-- POSTER MAKER -->
   <div id="lost-page">
@@ -567,9 +668,6 @@
             </a>
             <a id="share-whatsapp" class="share-btn share-whatsapp" target="_blank" rel="noopener">
               <span class="share-icon">💬</span> WhatsApp
-            </a>
-            <a id="share-telegram" class="share-btn share-telegram" target="_blank" rel="noopener">
-              <span class="share-icon">✈️</span> Telegram
             </a>
             <a href="https://nextdoor.com/lost_and_found/" target="_blank" rel="noopener" class="share-btn share-nextdoor">
               <span class="share-icon">🏘️</span> Nextdoor Lost &amp; Found
@@ -741,9 +839,6 @@
 
       document.getElementById('share-whatsapp').href =
         `https://wa.me/?text=${enc}`;
-
-      document.getElementById('share-telegram').href =
-        `https://t.me/share/url?url=${encodeURIComponent(window.location.href)}&text=${enc}`;
 
       document.getElementById('share-sms').href =
         `sms:?body=${enc}`;

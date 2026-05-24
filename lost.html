@@ -616,7 +616,7 @@
         d.reward ? `💰 $${d.reward} Reward` : '',
         `📞 Contact: ${d.contact}`,
         '#LostPet #MissingPet #LostDog #LostCat'
-      ].filter(Boolean).join('\n');
+      ].filter(Boolean).join('\r\n');
 
       const enc = encodeURIComponent(text);
       const encShort = encodeURIComponent(
@@ -636,7 +636,7 @@
         `mailto:?subject=${encodeURIComponent(`Lost ${d.type}: ${d.name}`)}&body=${enc}`;
 
       document.getElementById('share-petfinder').href =
-        `https://www.petfinder.com/lost-pets/report-lost-pet/?animal_type=${encodeURIComponent(d.type)}&name=${encodeURIComponent(d.name)}&location=${encodeURIComponent(d.location)}`;
+        `https://www.petfinder.com/lost-pets/report-lost-pet/`;
     }
   </script>
 

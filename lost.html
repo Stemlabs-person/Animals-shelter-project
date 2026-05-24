@@ -379,11 +379,11 @@
     .share-facebook { background: #1877f2; }
     .share-twitter  { background: #000; }
     .share-whatsapp { background: #25d366; }
-    .share-pawboost { background: #e03d3d; }
+    .share-reddit   { background: #ff4500; }
     .share-nextdoor { background: #00b246; }
-    .share-petfbi   { background: #3a6bc4; }
+    .share-craigslist{ background: #6e3fad; }
     .share-email    { background: #555; }
-    .share-petfinder{ background: #e8650a; }
+    .share-tumblr   { background: #35465c; }
 
     /* EMAIL MODAL */
     #email-modal-overlay {
@@ -568,20 +568,20 @@
             <a id="share-whatsapp" class="share-btn share-whatsapp" target="_blank" rel="noopener">
               <span class="share-icon">💬</span> WhatsApp
             </a>
-            <a id="share-pawboost" class="share-btn share-pawboost" target="_blank" rel="noopener">
-              <span class="share-icon">🐾</span> Post on PawBoost
+            <a id="share-reddit" class="share-btn share-reddit" target="_blank" rel="noopener">
+              <span class="share-icon">🤖</span> Reddit r/lostpets
             </a>
             <a href="https://nextdoor.com/lost_and_found/" target="_blank" rel="noopener" class="share-btn share-nextdoor">
               <span class="share-icon">🏘️</span> Nextdoor Lost &amp; Found
             </a>
-            <a id="share-petfbi" class="share-btn share-petfbi" target="_blank" rel="noopener">
-              <span class="share-icon">🔍</span> Post on Pet FBI
+            <a id="share-craigslist" class="share-btn share-craigslist" target="_blank" rel="noopener">
+              <span class="share-icon">📋</span> Craigslist Lost &amp; Found
             </a>
             <a id="share-email" class="share-btn share-email">
               <span class="share-icon">✉️</span> Email a Group
             </a>
-            <a id="share-petfinder" class="share-btn share-petfinder" target="_blank" rel="noopener">
-              <span class="share-icon">🐾</span> Report on Petfinder
+            <a id="share-tumblr" class="share-btn share-tumblr" target="_blank" rel="noopener">
+              <span class="share-icon">📝</span> Post on Tumblr
             </a>
           </div>
         </div>
@@ -608,6 +608,7 @@
         <label>Subject</label>
         <input type="text" id="email-subject" />
       </div>
+      <img id="email-modal-photo" alt="Pet photo" style="display:none; width:100%; max-height:180px; object-fit:cover; border-radius:10px; margin-bottom:12px;" />
       <div class="email-field">
         <label>Message</label>
         <textarea id="email-body"></textarea>
@@ -659,7 +660,8 @@
 
       currentPosterData = { name, type, breed, color, location, date, desc, reward, contact, photo: photoDataURL };
 
-      const formattedDate = date ? new Date(date + 'T00:00:00').toLocaleDateString('en-US', { year:'numeric', month:'long', day:'numeric' }) : null;
+      const parsedDatePoster = date ? new Date(date + 'T00:00:00') : null;
+      const formattedDate = parsedDatePoster && !isNaN(parsedDatePoster) ? parsedDatePoster.toLocaleDateString('en-US', { year:'numeric', month:'long', day:'numeric' }) : null;
 
       document.getElementById('poster').innerHTML = `
         <div class="poster-status">LOST ${type.toUpperCase()}</div>
@@ -690,7 +692,8 @@
     function buildShareLinks() {
       if (!currentPosterData) return;
       const d = currentPosterData;
-      const formattedDate = d.date ? new Date(d.date + 'T00:00:00').toLocaleDateString('en-US', { year:'numeric', month:'long', day:'numeric' }) : '';
+      const parsedDate = d.date ? new Date(d.date + 'T00:00:00') : null;
+      const formattedDate = parsedDate && !isNaN(parsedDate) ? parsedDate.toLocaleDateString('en-US', { year:'numeric', month:'long', day:'numeric' }) : '';
 
       const text = [
         `🚨 LOST ${d.type.toUpperCase()}: ${d.name}`,
@@ -700,7 +703,7 @@
         d.desc ? d.desc : '',
         d.reward ? `💰 $${d.reward} Reward` : '',
         `📞 Contact: ${d.contact}`,
-        '#LostPet #MissingPet #LostDog #LostCat'
+        d.photo ? `📷 Photo attached` : ''
       ].filter(Boolean).join('\r\n');
 
       const enc = encodeURIComponent(text);
@@ -717,14 +720,14 @@
       document.getElementById('share-whatsapp').href =
         `https://wa.me/?text=${enc}`;
 
-      document.getElementById('share-pawboost').href =
-        `https://www.pawboost.com/p/report`;
+      document.getElementById('share-reddit').href =
+        `https://www.reddit.com/r/lostpets/submit?title=${encodeURIComponent(`LOST ${d.type}: ${d.name} — ${d.location}`)}&text=${enc}`;
 
-      document.getElementById('share-petfbi').href =
-        `https://petfbi.org/report-a-lost-pet/`;
+      document.getElementById('share-craigslist').href =
+        `https://post.craigslist.org/c/laf`;
 
-      document.getElementById('share-petfinder').href =
-        `https://www.petfinder.com/lost-and-found/`;
+      document.getElementById('share-tumblr').href =
+        `https://www.tumblr.com/share/text?title=${encodeURIComponent(`LOST ${d.type}: ${d.name}`)}&body=${enc}`;
 
       document.getElementById('share-email').removeAttribute('href');
       document.getElementById('share-email').onclick = function(e) {
@@ -736,6 +739,13 @@
     function openEmailModal(d, bodyText) {
       document.getElementById('email-subject').value = `Lost ${d.type}: ${d.name} — Please Help`;
       document.getElementById('email-body').value = bodyText.replace(/\r\n/g, '\n');
+      const photoEl = document.getElementById('email-modal-photo');
+      if (d.photo) {
+        photoEl.src = d.photo;
+        photoEl.style.display = 'block';
+      } else {
+        photoEl.style.display = 'none';
+      }
       document.getElementById('email-modal-overlay').classList.add('open');
     }
 

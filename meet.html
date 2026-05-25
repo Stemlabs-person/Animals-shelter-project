@@ -33,25 +33,108 @@
   </style>
   <style>
 
+    /* EMOJI TICKER */
+    .emoji-ticker {
+      background: #3d2e7a;
+      overflow: hidden;
+      white-space: nowrap;
+      padding: 10px 0;
+      border-bottom: 2px solid #5040a8;
+    }
+
+    .emoji-ticker-inner {
+      display: inline-block;
+      animation: ticker-scroll 28s linear infinite;
+      font-size: 1.3rem;
+      letter-spacing: 10px;
+    }
+
+    @keyframes ticker-scroll {
+      0%   { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+
     /* PAGE HEADER */
     .breeds-header {
-      background: linear-gradient(135deg, #1a1a1a 0%, #2e1a0e 100%);
+      background: linear-gradient(135deg, #3d2e7a 0%, #6a52c8 50%, #9178e0 100%);
       color: #fff;
       text-align: center;
       padding: 70px 48px 50px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .breeds-header::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse at 15% 60%, rgba(255,255,255,0.08) 0%, transparent 50%),
+        radial-gradient(ellipse at 85% 20%, rgba(180,140,255,0.18) 0%, transparent 50%);
+      pointer-events: none;
+    }
+
+    .breeds-header-inner {
+      position: relative;
+      z-index: 1;
+    }
+
+    .breeds-eyebrow {
+      display: inline-block;
+      background: rgba(255,255,255,0.15);
+      border: 1px solid rgba(255,255,255,0.3);
+      color: #e0d8ff;
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      padding: 6px 16px;
+      border-radius: 20px;
+      margin-bottom: 18px;
     }
 
     .breeds-header h2 {
       color: #fff;
-      font-size: 2.6rem;
+      font-size: 2.8rem;
       margin-bottom: 0.6rem;
+      text-shadow: 0 2px 16px rgba(0,0,0,0.2);
+    }
+
+    .breeds-header h2 em {
+      font-style: normal;
+      color: #d4c0ff;
     }
 
     .breeds-header p {
-      color: #bbb;
+      color: rgba(255,255,255,0.78);
       font-size: 1.05rem;
       max-width: 560px;
       margin: 0 auto 32px;
+      line-height: 1.75;
+    }
+
+    .breeds-stats-row {
+      display: flex;
+      justify-content: center;
+      gap: 32px;
+      margin-bottom: 32px;
+      flex-wrap: wrap;
+    }
+
+    .breeds-stat {
+      text-align: center;
+    }
+
+    .breeds-stat strong {
+      display: block;
+      font-size: 1.6rem;
+      font-weight: 800;
+      color: #fff;
+    }
+
+    .breeds-stat span {
+      font-size: 0.82rem;
+      color: rgba(255,255,255,0.6);
     }
 
     /* FILTER TABS */
@@ -271,7 +354,9 @@
       .featured-card { grid-template-columns: 1fr; }
       .featured-card img { height: 240px; }
       .featured-info { padding: 28px 24px; }
-      .breeds-header { padding: 50px 24px 36px; }
+      .breeds-header { padding: 48px 24px 36px; }
+      .breeds-header h2 { font-size: 2rem; }
+      .breeds-stats-row { gap: 20px; }
       .featured-section { padding: 40px 24px 0; }
       .breeds-list-section { padding: 32px 24px 60px; }
     }
@@ -300,14 +385,29 @@
     </ul>
   </nav>
 
-  <!-- DARK HEADER WITH FILTER TABS -->
+  <!-- EMOJI TICKER -->
+  <div class="emoji-ticker">
+    <span class="emoji-ticker-inner">
+      🐶 &nbsp; 🐱 &nbsp; 🐾 &nbsp; 🦮 &nbsp; 🐩 &nbsp; 😺 &nbsp; 🐕 &nbsp; 🐈 &nbsp; 🦴 &nbsp; 🐾 &nbsp; 🐶 &nbsp; 🐱 &nbsp; 🐾 &nbsp; 🦮 &nbsp; 🐩 &nbsp; 😺 &nbsp; 🐕 &nbsp; 🐈 &nbsp; 🦴 &nbsp; 🐾 &nbsp; 🐶 &nbsp; 🐱 &nbsp; 🐾 &nbsp; 🦮 &nbsp; 🐩 &nbsp; 😺 &nbsp; 🐕 &nbsp; 🐈 &nbsp; 🦴 &nbsp; 🐾 &nbsp; 🐶 &nbsp; 🐱 &nbsp; 🐾 &nbsp; 🦮 &nbsp; 🐩 &nbsp; 😺 &nbsp; 🐕 &nbsp; 🐈 &nbsp; 🦴 &nbsp; 🐾 &nbsp;
+    </span>
+  </div>
+
+  <!-- HERO HEADER WITH FILTER TABS -->
   <div class="breeds-header">
-    <h2>Browse by Breed</h2>
-    <p>Explore dog and cat breeds available for adoption. Click any breed to see real animals waiting for a home near you.</p>
-    <div class="filter-tabs">
-      <button class="filter-tab active" onclick="filterBreeds('all', this)">🐾 All Animals</button>
-      <button class="filter-tab" onclick="filterBreeds('dog', this)">🐶 Dogs Only</button>
-      <button class="filter-tab" onclick="filterBreeds('cat', this)">🐱 Cats Only</button>
+    <div class="breeds-header-inner">
+      <span class="breeds-eyebrow">🐾 Find Your Perfect Match</span>
+      <h2>Browse <em>Every Breed</em></h2>
+      <p>Explore dogs and cats available for adoption. Each breed card links to real animals waiting for a forever home near you.</p>
+      <div class="breeds-stats-row">
+        <div class="breeds-stat"><strong>200+</strong><span>Breeds listed</span></div>
+        <div class="breeds-stat"><strong>🐶 🐱</strong><span>Dogs &amp; cats</span></div>
+        <div class="breeds-stat"><strong>Free</strong><span>To browse &amp; adopt</span></div>
+      </div>
+      <div class="filter-tabs">
+        <button class="filter-tab active" onclick="filterBreeds('all', this)">🐾 All Animals</button>
+        <button class="filter-tab" onclick="filterBreeds('dog', this)">🐶 Dogs Only</button>
+        <button class="filter-tab" onclick="filterBreeds('cat', this)">🐱 Cats Only</button>
+      </div>
     </div>
   </div>
 

@@ -436,7 +436,7 @@ Photo: [ biscuit.jpg uploaded ✓ ]
 |--------|-------|-------|
 | Primary orange | `#d9601a` | Buttons, highlights, active nav links |
 | Dark orange (hover) | `#b84e12` | Button hover state |
-| Light orange bg | `#fdf7f0` | Alternating section backgrounds |
+| Light orange bg | `#fdf7f0` | Alternatinfg section backgrounds |
 | Light orange accent | `#fdebd8` | Pet tags, info boxes |
 | Dark text | `#1a1a1a` | Headings |
 | Body text | `#555` | Paragraphs |

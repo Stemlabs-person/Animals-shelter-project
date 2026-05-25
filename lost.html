@@ -614,7 +614,7 @@
   <!-- HERO BANNER -->
   <div id="lost-hero">
     <div class="hero-content">
-      <span class="hero-tag">🔍 Lost Pet Centre</span>
+      <span class="hero-tag" id="hero-tag">🚨 🔍 Lost Pet Centre</span>
       <h1>Let's Bring Your Pet <em>Back Home</em></h1>
       <p>
         Fill in your pet's details below to generate a shareable poster, then spread the word
@@ -865,6 +865,7 @@
       buildShareLinks();
       document.getElementById('share-section').style.display = 'block';
       document.body.classList.add('calm-mode');
+      document.getElementById('hero-tag').textContent = '🏁 ✅ Poster Ready — Now Share It!';
     }
 
     function printPoster() {

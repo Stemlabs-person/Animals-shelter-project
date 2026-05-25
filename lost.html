@@ -7,20 +7,75 @@
   <link rel="stylesheet" href="style.css" />
   <style>
     /* ===== LOST PET PAGE ===== */
-    body { background: #fffbf0; }
+
+    /* --- AMBER phase (default — filling in details) --- */
+    body {
+      background: #fffbf0;
+      transition: background 1.2s ease;
+    }
 
     #lost-page {
       padding: 60px 48px;
       max-width: 1100px;
       margin: 0 auto;
-      background: #fffbf0;
+      background: transparent;
     }
 
     #lost-page h2 {
       text-align: center;
       margin-bottom: 0.4rem;
       color: #b86000;
+      transition: color 1.2s ease;
     }
+
+    .poster-form {
+      transition: border-color 1.2s ease, box-shadow 1.2s ease;
+    }
+
+    /* --- CALM phase (after poster generated) --- */
+    body.calm-mode { background: #f2f8f4; }
+    body.calm-mode #lost-page h2 { color: #2d6a4a; }
+
+    body.calm-mode .poster-form {
+      border-top-color: #4a9a6a;
+      box-shadow: 0 4px 24px rgba(74,154,106,0.12);
+    }
+
+    body.calm-mode .poster-form h3 { color: #2d6a4a; }
+
+    body.calm-mode .form-group input:focus,
+    body.calm-mode .form-group textarea:focus,
+    body.calm-mode .form-group select:focus { border-color: #4a9a6a; }
+
+    body.calm-mode .photo-upload { border-color: #4a9a6a; background: #f0f8f3; }
+    body.calm-mode .photo-upload:hover { background: #e0f2e8; }
+    body.calm-mode .photo-upload p { color: #4a9a6a; }
+
+    body.calm-mode .reward-input-wrap:focus-within { border-color: #4a9a6a; }
+    body.calm-mode .reward-input-wrap span { color: #4a9a6a; background: #f0f8f3; }
+
+    body.calm-mode .generate-btn { background: #4a9a6a; }
+    body.calm-mode .generate-btn:hover { background: #357a52; }
+
+    body.calm-mode #poster { border-color: #4a9a6a; }
+    body.calm-mode #poster .poster-status { color: #2d6a4a; background: #e0f2e8; }
+    body.calm-mode #poster .poster-reward { background: #4a9a6a; }
+
+    body.calm-mode .btn-print { background: #4a9a6a; }
+    body.calm-mode .btn-print:hover { background: #357a52; }
+    body.calm-mode .btn-copy { border-color: #4a9a6a !important; color: #4a9a6a; }
+    body.calm-mode .btn-copy:hover { background: #e0f2e8; }
+
+    body.calm-mode #share-section {
+      background: #e8f5ee;
+      border-top-color: #4a9a6a;
+    }
+    body.calm-mode #share-section h3 { color: #2d6a4a; }
+
+    body.calm-mode .further-reading { background: #e8f5ee; border-top-color: #a8d8b8; }
+    body.calm-mode .further-reading h4 { color: #2d6a4a; }
+    body.calm-mode .further-reading-card { border-color: #a8d8b8; background: #f2f8f4; }
+    body.calm-mode .further-reading-card:hover { border-color: #4a9a6a; }
 
     .lost-layout {
       display: grid;
@@ -809,6 +864,7 @@
       document.getElementById('poster-actions').style.display = 'flex';
       buildShareLinks();
       document.getElementById('share-section').style.display = 'block';
+      document.body.classList.add('calm-mode');
     }
 
     function printPoster() {

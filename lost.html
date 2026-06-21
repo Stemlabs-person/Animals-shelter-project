@@ -574,6 +574,181 @@
       gap: 6px;
     }
 
+    /* COMMUNITY BOARD */
+    #board-section {
+      padding: 60px 48px 80px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    #board-section h2 {
+      font-size: 1.8rem;
+      color: #b86000;
+      margin-bottom: 0.3rem;
+    }
+
+    body.calm-mode #board-section h2 { color: #2d6a4a; }
+
+    #board-section .section-sub {
+      margin-bottom: 32px;
+      text-align: center;
+    }
+
+    .board-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 24px;
+    }
+
+    .board-card {
+      background: #fff;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 4px 20px rgba(200,130,0,0.12);
+      border-top: 4px solid #e8900a;
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    body.calm-mode .board-card {
+      border-top-color: #4a9a6a;
+      box-shadow: 0 4px 20px rgba(74,154,106,0.12);
+    }
+
+    .board-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 28px rgba(200,130,0,0.18);
+    }
+
+    .board-card-photo {
+      width: 100%;
+      height: 160px;
+      object-fit: cover;
+    }
+
+    .board-card-photo-placeholder {
+      width: 100%;
+      height: 160px;
+      background: #ffedc0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 3rem;
+    }
+
+    body.calm-mode .board-card-photo-placeholder { background: #e0f2e8; }
+
+    .board-card-body {
+      padding: 16px 18px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .board-card-status {
+      font-size: 0.72rem;
+      font-weight: 800;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: #e8900a;
+      margin-bottom: 2px;
+    }
+
+    body.calm-mode .board-card-status { color: #4a9a6a; }
+
+    .board-card-name {
+      font-size: 1.2rem;
+      font-weight: 800;
+      color: #1a1a1a;
+    }
+
+    .board-card-meta {
+      font-size: 0.85rem;
+      color: #777;
+      line-height: 1.6;
+    }
+
+    .board-card-contact {
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: #e8900a;
+      margin-top: 6px;
+    }
+
+    body.calm-mode .board-card-contact { color: #4a9a6a; }
+
+    .board-card-footer {
+      display: flex;
+      gap: 8px;
+      padding: 12px 18px;
+      border-top: 1px solid #f5e8c0;
+    }
+
+    body.calm-mode .board-card-footer { border-top-color: #c8e8d0; }
+
+    .board-found-btn {
+      flex: 1;
+      background: #4a9a6a;
+      color: #fff;
+      border: none;
+      border-radius: 20px;
+      padding: 8px;
+      font-size: 0.82rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .board-found-btn:hover { background: #357a52; }
+
+    .board-remove-btn {
+      background: transparent;
+      border: 1.5px solid #ddd;
+      color: #aaa;
+      border-radius: 20px;
+      padding: 8px 14px;
+      font-size: 0.82rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .board-remove-btn:hover { border-color: #e05050; color: #e05050; }
+
+    .board-empty {
+      text-align: center;
+      color: #bbb;
+      font-size: 1rem;
+      padding: 48px 0;
+      grid-column: 1 / -1;
+    }
+
+    .board-divider {
+      border: none;
+      border-top: 2px solid #f5d070;
+      margin: 0 48px;
+      opacity: 0.5;
+    }
+
+    body.calm-mode .board-divider { border-top-color: #a8d8b8; }
+
+    .btn-post-board {
+      background: #1a1a1a;
+      color: #fff;
+      border: none;
+      padding: 13px;
+      border-radius: 28px;
+      font-size: 0.95rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background 0.2s;
+      flex: 1;
+    }
+
+    .btn-post-board:hover { background: #333; }
+
     /* PRINT STYLES */
     @media print {
       nav, footer, .poster-form, .poster-preview-wrap h3,
@@ -716,6 +891,7 @@
         </div>
         <div class="poster-actions" id="poster-actions" style="display:none;">
           <button class="btn-print" onclick="printPoster()">🖨️ Print Poster</button>
+          <button class="btn-post-board" onclick="postToBoard()">📌 Post to Board</button>
         </div>
 
         <div id="share-section">
@@ -747,6 +923,16 @@
         </div>
       </div>
 
+    </div>
+  </div>
+
+  <!-- COMMUNITY BOARD -->
+  <hr class="board-divider" />
+  <div id="board-section">
+    <h2 style="text-align:center;">📋 Community Lost Pet Board</h2>
+    <p class="section-sub">Posters submitted by the community. Click <strong>Found!</strong> to remove a pet once they're home safe.</p>
+    <div class="board-grid" id="board-grid">
+      <div class="board-empty">No posters yet — be the first to post one above! 🐾</div>
     </div>
   </div>
 
@@ -966,6 +1152,78 @@
       const body    = document.getElementById('email-body').value;
       window.location.href = `mailto:${to}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
     }
+
+    /* ── COMMUNITY BOARD ── */
+    function postToBoard() {
+      if (!currentPosterData) return;
+      const d = currentPosterData;
+      const id = Date.now();
+      const parsedDate = d.date ? new Date(d.date + 'T00:00:00') : null;
+      const formattedDate = parsedDate && !isNaN(parsedDate)
+        ? parsedDate.toLocaleDateString('en-US', { month:'short', day:'numeric', year:'numeric' }) : '';
+
+      const entry = { id, name: d.name, type: d.type, breed: d.breed, color: d.color,
+        location: d.location, date: formattedDate, desc: d.desc, reward: d.reward,
+        contact: d.contact, photo: d.photo, postedAt: new Date().toLocaleDateString() };
+
+      const posts = JSON.parse(localStorage.getItem('lostPetBoard') || '[]');
+      posts.unshift(entry);
+      localStorage.setItem('lostPetBoard', JSON.stringify(posts));
+      renderBoard();
+
+      const btn = document.querySelector('.btn-post-board');
+      btn.textContent = '✅ Posted!';
+      setTimeout(() => { btn.textContent = '📌 Post to Board'; }, 2000);
+    }
+
+    function removeFromBoard(id) {
+      let posts = JSON.parse(localStorage.getItem('lostPetBoard') || '[]');
+      posts = posts.filter(p => p.id !== id);
+      localStorage.setItem('lostPetBoard', JSON.stringify(posts));
+      renderBoard();
+    }
+
+    function markFound(id) {
+      let posts = JSON.parse(localStorage.getItem('lostPetBoard') || '[]');
+      posts = posts.filter(p => p.id !== id);
+      localStorage.setItem('lostPetBoard', JSON.stringify(posts));
+      renderBoard();
+      alert('🎉 So happy they\'re home safe! Poster removed from the board.');
+    }
+
+    function renderBoard() {
+      const posts = JSON.parse(localStorage.getItem('lostPetBoard') || '[]');
+      const grid = document.getElementById('board-grid');
+      if (posts.length === 0) {
+        grid.innerHTML = '<div class="board-empty">No posters yet — be the first to post one above! 🐾</div>';
+        return;
+      }
+      grid.innerHTML = posts.map(p => `
+        <div class="board-card">
+          ${p.photo
+            ? `<img class="board-card-photo" src="${p.photo}" alt="${p.name}" />`
+            : `<div class="board-card-photo-placeholder">${p.type === 'Dog' ? '🐶' : p.type === 'Cat' ? '🐱' : '🐾'}</div>`}
+          <div class="board-card-body">
+            <div class="board-card-status">🚨 Lost ${p.type}</div>
+            <div class="board-card-name">${p.name}</div>
+            <div class="board-card-meta">
+              ${p.breed ? `<strong>Breed:</strong> ${p.breed}<br>` : ''}
+              ${p.color ? `<strong>Colour:</strong> ${p.color}<br>` : ''}
+              <strong>Last seen:</strong> ${p.location}${p.date ? ' · ' + p.date : ''}<br>
+              ${p.reward ? `💰 <strong>$${p.reward} reward</strong><br>` : ''}
+              <span style="font-size:0.75rem;color:#bbb;">Posted ${p.postedAt}</span>
+            </div>
+            <div class="board-card-contact">📞 ${p.contact}</div>
+          </div>
+          <div class="board-card-footer">
+            <button class="board-found-btn" onclick="markFound(${p.id})">🎉 Found!</button>
+            <button class="board-remove-btn" onclick="removeFromBoard(${p.id})">✕ Remove</button>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    renderBoard();
   </script>
 
 </body>

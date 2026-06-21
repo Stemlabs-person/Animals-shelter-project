@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FurAndFound — FAQ</title>
+  <meta name="description" content="Frequently asked questions about FurAndFound — adoption, lost pets, the community board, and more." />
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    body { background: #fffdf9; }
+
+    #faq-hero {
+      background: linear-gradient(135deg, #1a1a2e 0%, #2d2060 50%, #3d2e7a 100%);
+      padding: 60px 48px 50px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    #faq-hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at 70% 30%, rgba(180,140,255,0.18) 0%, transparent 55%);
+      pointer-events: none;
+    }
+
+    #faq-hero .inner { position: relative; z-index: 1; max-width: 620px; margin: 0 auto; }
+
+    #faq-hero .tag {
+      display: inline-block;
+      background: rgba(255,255,255,0.12);
+      border: 1px solid rgba(255,255,255,0.25);
+      color: #d4c0ff;
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      padding: 6px 16px;
+      border-radius: 20px;
+      margin-bottom: 18px;
+    }
+
+    #faq-hero h1 { font-size: 2.6rem; color: #fff; margin-bottom: 12px; }
+    #faq-hero h1 em { font-style: normal; color: #d4c0ff; }
+    #faq-hero p { color: rgba(255,255,255,0.75); font-size: 1rem; line-height: 1.8; }
+
+    #faq-wrap {
+      max-width: 780px;
+      margin: 0 auto;
+      padding: 60px 48px 80px;
+    }
+
+    .faq-category {
+      font-size: 0.78rem;
+      font-weight: 800;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: #6a52c8;
+      margin: 40px 0 16px;
+    }
+
+    .faq-category:first-child { margin-top: 0; }
+
+    .faq-item {
+      border: 1.5px solid #ede8ff;
+      border-radius: 14px;
+      margin-bottom: 12px;
+      overflow: hidden;
+      background: #fff;
+      transition: box-shadow 0.2s;
+    }
+
+    .faq-item:hover { box-shadow: 0 4px 16px rgba(106,82,200,0.10); }
+
+    .faq-question {
+      width: 100%;
+      background: none;
+      border: none;
+      text-align: left;
+      padding: 18px 20px;
+      font-size: 1rem;
+      font-weight: 700;
+      color: #1a1a1a;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-family: inherit;
+      gap: 12px;
+    }
+
+    .faq-question:hover { color: #6a52c8; }
+
+    .faq-chevron {
+      font-size: 1rem;
+      color: #6a52c8;
+      transition: transform 0.25s;
+      flex-shrink: 0;
+    }
+
+    .faq-item.open .faq-chevron { transform: rotate(180deg); }
+
+    .faq-answer {
+      display: none;
+      padding: 0 20px 18px;
+      font-size: 0.95rem;
+      color: #555;
+      line-height: 1.8;
+      border-top: 1px solid #ede8ff;
+    }
+
+    .faq-item.open .faq-answer { display: block; }
+
+    .faq-answer a { color: #6a52c8; }
+
+    @media (max-width: 700px) {
+      #faq-hero { padding: 48px 24px 40px; }
+      #faq-hero h1 { font-size: 2rem; }
+      #faq-wrap { padding: 40px 20px 60px; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="index.html" class="nav-logo">🐾 FurAndFound</a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="meet.html">Browse Breeds</a></li>
+      <li><a href="why.html">Why Adopt</a></li>
+      <li><a href="care.html">Pet Care</a></li>
+      <li><a href="how.html">How It Works</a></li>
+      <li><a href="lost.html">Lost Pet</a></li>
+      <li><a href="board.html">Lost Board</a></li>
+      <li><a href="https://www.petfinder.com" target="_blank" rel="noopener" class="nav-btn">Adopt Now</a></li>
+    </ul>
+  </nav>
+
+  <div id="faq-hero">
+    <div class="inner">
+      <span class="tag">❓ Help Centre</span>
+      <h1>Frequently Asked <em>Questions</em></h1>
+      <p>Everything you need to know about using FurAndFound — from adopting a pet to reporting a lost one.</p>
+    </div>
+  </div>
+
+  <div id="faq-wrap">
+
+    <div class="faq-category">🐾 General</div>
+
+    <div class="faq-item">
+      <button class="faq-question" onclick="toggleFaq(this)">
+        What is FurAndFound? <span class="faq-chevron">▾</span>
+      </button>
+      <div class="faq-answer">
+        FurAndFound is a community website that helps connect shelter animals with loving homes. We link to trusted organisations like Petfinder, the ASPCA, and the Humane Society where you can adopt, volunteer, or donate.
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question" onclick="toggleFaq(this)">
+        Is FurAndFound free to use? <span class="faq-chevron">▾</span>
+      </button>
+      <div class="faq-answer">
+        Yes — completely free. There are no fees, no sign-ups required, and no ads. Everything on this site is here to help animals find homes.
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question" onclick="toggleFaq(this)">
+        Do you have animals available for adoption directly on this site? <span class="faq-chevron">▾</span>
+      </button>
+      <div class="faq-answer">
+        No — we don't house animals ourselves. We link directly to Petfinder where you can search real animals available near you. Every "Adopt Now" button takes you to Petfinder's listings.
+      </div>
+    </div>
+
+    <div class="faq-category">📋 Adoption</div>
+
+    <div class="faq-item">
+      <button class="faq-question" onclick="toggleFaq(this)">
+        How do I start the adoption process? <span class="faq-chevron">▾</span>
+      </button>
+      <div class="faq-answer">
+        Head to our <a href="how.html">How It Works</a> page for a full step-by-step guide. In short: search on Petfinder, contact the shelter, submit an application, and bring your new pet home.
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question" onclick="toggleFaq(this)">
+        How much does adoption cost? <span class="faq-chevron">▾</span>
+      </button>
+      <div class="faq-answer">
+        Adoption fees typically range from $0 to $500 depending on the shelter and animal. The fee usually covers vaccinations, microchipping, and spay/neuter surgery — far less than buying from a breeder.
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question" onclick="toggleFaq(this)">
+        Can I adopt if I rent my home? <span class="faq-chevron">▾</span>
+      </button>
+      <div class="faq-answer">
+        Yes, but you'll need your landlord's permission and may need to provide their contact details on your adoption application. Check your lease first — some buildings have pet size or breed restrictions.
+      </div>
+    </div>
+
+    <div class="faq-category">🔍 Lost Pets</div>
+
+    <div class="faq-item">
+      <button class="faq-question" onclick="toggleFaq(this)">
+        How do I create a lost pet poster? <span class="faq-chevron">▾</span>
+      </button>
+      <div class="faq-answer">
+        Go to our <a href="lost.html">Lost Pet</a> page, fill in your pet's details, upload a photo, and click Generate Poster. You can then print it or share it across social media, WhatsApp, SMS, and more.
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question" onclick="toggleFaq(this)">
+        What is the Lost Board? <span class="faq-chevron">▾</span>
+      </button>
+      <div class="faq-answer">
+        The <a href="board.html">Lost Board</a> is a community page where lost pet posters are displayed. After generating your poster, click "Post to Board" to add it. When your pet is found, click 🎉 Found! to remove it.
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question" onclick="toggleFaq(this)">
+        Why can't I see other people's lost pet posts? <span class="faq-chevron">▾</span>
+      </button>
+      <div class="faq-answer">
+        Currently posts are saved locally in your browser, so each visitor only sees their own. We're working on connecting a shared database so everyone sees the same board. Stay tuned!
+      </div>
+    </div>
+
+    <div class="faq-category">🌿 Pet Care</div>
+
+    <div class="faq-item">
+      <button class="faq-question" onclick="toggleFaq(this)">
+        Where can I find pet care advice? <span class="faq-chevron">▾</span>
+      </button>
+      <div class="faq-answer">
+        Our <a href="care.html">Pet Care</a> page covers feeding, exercise, vet visits, training, and building trust with a new pet. Each page also has a Further Reading section linking to expert guides from the ASPCA, Humane Society, and AVMA.
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question" onclick="toggleFaq(this)">
+        How soon should I take a new pet to the vet? <span class="faq-chevron">▾</span>
+      </button>
+      <div class="faq-answer">
+        Within the first week is ideal. A vet can check for any health issues, confirm vaccinations are up to date, and give you a baseline health record for your new pet.
+      </div>
+    </div>
+
+  </div>
+
+  <footer>
+    <p>🐾 FurAndFound Animal Shelter · Connecting pets with the people who care</p>
+    <p>Built with love for dogs, cats, kids, adults, and seniors everywhere.</p>
+    <p style="margin-top:8px; font-size:0.8rem;"><a href="faq.html" style="color:#888; text-decoration:underline;">FAQ</a></p>
+  </footer>
+
+  <script>
+    function toggleFaq(btn) {
+      const item = btn.closest('.faq-item');
+      item.classList.toggle('open');
+    }
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FurAndFound — Lost Pet Board</title>
+  <meta name="description" content="Community lost pet board — help reunite lost animals with their families." />
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    body { background: #fffbf0; }
+
+    /* HERO */
+    #board-hero {
+      background: linear-gradient(135deg, #7a4200 0%, #c07000 45%, #e8900a 100%);
+      padding: 60px 48px 50px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    #board-hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse at 20% 50%, rgba(255,200,50,0.20) 0%, transparent 55%),
+        radial-gradient(ellipse at 85% 20%, rgba(255,240,100,0.15) 0%, transparent 50%);
+      pointer-events: none;
+    }
+
+    #board-hero .hero-inner {
+      position: relative;
+      z-index: 1;
+      max-width: 680px;
+      margin: 0 auto;
+    }
+
+    #board-hero .hero-tag {
+      display: inline-block;
+      background: rgba(255,255,255,0.15);
+      border: 1px solid rgba(255,255,255,0.35);
+      color: #fff8e0;
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      padding: 6px 16px;
+      border-radius: 20px;
+      margin-bottom: 18px;
+    }
+
+    #board-hero h1 {
+      font-size: 2.8rem;
+      color: #fff;
+      line-height: 1.15;
+      margin-bottom: 14px;
+      text-shadow: 0 2px 20px rgba(0,0,0,0.2);
+    }
+
+    #board-hero h1 em { font-style: normal; color: #ffe090; }
+
+    #board-hero p {
+      font-size: 1rem;
+      color: rgba(255,255,255,0.8);
+      line-height: 1.8;
+      margin-bottom: 28px;
+    }
+
+    #board-hero .hero-btn {
+      display: inline-block;
+      background: #fff;
+      color: #b86000;
+      padding: 13px 32px;
+      border-radius: 32px;
+      font-weight: 800;
+      font-size: 1rem;
+      text-decoration: none;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+      transition: transform 0.15s, box-shadow 0.15s;
+    }
+
+    #board-hero .hero-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+    }
+
+    /* FILTER BAR */
+    .filter-bar {
+      background: #fff8e6;
+      border-bottom: 2px solid #f5d070;
+      padding: 16px 48px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .filter-bar span {
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: #a06000;
+    }
+
+    .filter-pill {
+      background: transparent;
+      border: 2px solid #e8c060;
+      color: #a06000;
+      padding: 6px 18px;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      cursor: pointer;
+      font-family: inherit;
+      transition: all 0.2s;
+    }
+
+    .filter-pill:hover,
+    .filter-pill.active {
+      background: #e8900a;
+      border-color: #e8900a;
+      color: #fff;
+    }
+
+    /* BOARD */
+    #board-wrap {
+      max-width: 1140px;
+      margin: 0 auto;
+      padding: 48px 48px 80px;
+    }
+
+    .board-count {
+      font-size: 0.88rem;
+      color: #a06000;
+      font-weight: 700;
+      margin-bottom: 24px;
+    }
+
+    .board-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 24px;
+    }
+
+    .board-card {
+      background: #fff;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 4px 20px rgba(200,130,0,0.10);
+      border-top: 4px solid #e8900a;
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .board-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 32px rgba(200,130,0,0.18);
+    }
+
+    .board-card-photo {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+    }
+
+    .board-card-photo-placeholder {
+      width: 100%;
+      height: 180px;
+      background: #ffedc0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 3.5rem;
+    }
+
+    .board-card-body {
+      padding: 18px 20px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .board-card-status {
+      font-size: 0.72rem;
+      font-weight: 800;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: #e8900a;
+    }
+
+    .board-card-name {
+      font-size: 1.3rem;
+      font-weight: 800;
+      color: #1a1a1a;
+    }
+
+    .board-card-meta {
+      font-size: 0.86rem;
+      color: #666;
+      line-height: 1.7;
+    }
+
+    .board-card-reward {
+      background: #ffedc0;
+      color: #a06000;
+      font-weight: 800;
+      font-size: 0.88rem;
+      padding: 6px 12px;
+      border-radius: 8px;
+      margin-top: 4px;
+      display: inline-block;
+    }
+
+    .board-card-contact {
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: #e8900a;
+      margin-top: 6px;
+    }
+
+    .board-card-date {
+      font-size: 0.75rem;
+      color: #ccc;
+      margin-top: 4px;
+    }
+
+    .board-card-footer {
+      padding: 12px 20px;
+      border-top: 1px solid #fde8a0;
+      display: flex;
+      gap: 8px;
+    }
+
+    .btn-found {
+      flex: 1;
+      background: #4a9a6a;
+      color: #fff;
+      border: none;
+      border-radius: 20px;
+      padding: 9px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .btn-found:hover { background: #357a52; }
+
+    .btn-share-post {
+      background: transparent;
+      border: 1.5px solid #e8c060;
+      color: #a06000;
+      border-radius: 20px;
+      padding: 9px 14px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .btn-share-post:hover {
+      background: #ffedc0;
+    }
+
+    .board-empty {
+      grid-column: 1 / -1;
+      text-align: center;
+      padding: 80px 20px;
+      color: #bbb;
+    }
+
+    .board-empty p { font-size: 1.1rem; margin-bottom: 20px; }
+
+    .board-empty a {
+      background: #e8900a;
+      color: #fff;
+      padding: 13px 32px;
+      border-radius: 32px;
+      text-decoration: none;
+      font-weight: 700;
+      display: inline-block;
+      transition: background 0.2s;
+    }
+
+    .board-empty a:hover { background: #c07000; }
+
+    /* RESPONSIVE */
+    @media (max-width: 860px) {
+      #board-hero { padding: 48px 24px 40px; }
+      #board-hero h1 { font-size: 2rem; }
+      #board-wrap { padding: 32px 24px 60px; }
+      .filter-bar { padding: 14px 24px; }
+    }
+
+    @media (max-width: 520px) {
+      .board-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="index.html" class="nav-logo">🐾 FurAndFound</a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="meet.html">Browse Breeds</a></li>
+      <li><a href="why.html">Why Adopt</a></li>
+      <li><a href="care.html">Pet Care</a></li>
+      <li><a href="how.html">How It Works</a></li>
+      <li><a href="lost.html">Lost Pet</a></li>
+      <li><a href="board.html" class="nav-active">Lost Board</a></li>
+      <li><a href="https://www.petfinder.com" target="_blank" rel="noopener" class="nav-btn">Adopt Now</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <div id="board-hero">
+    <div class="hero-inner">
+      <span class="hero-tag">🚨 Community Board</span>
+      <h1>Help Bring Them <em>Back Home</em></h1>
+      <p>Browse lost pets reported by your community. If you've seen any of these animals, please contact the owner directly using the details on their card.</p>
+      <a href="lost.html" class="hero-btn">📌 Report a Lost Pet</a>
+    </div>
+  </div>
+
+  <!-- FILTER BAR -->
+  <div class="filter-bar">
+    <span>Filter:</span>
+    <button class="filter-pill active" onclick="filterBoard('all', this)">🐾 All</button>
+    <button class="filter-pill" onclick="filterBoard('Dog', this)">🐶 Dogs</button>
+    <button class="filter-pill" onclick="filterBoard('Cat', this)">🐱 Cats</button>
+  </div>
+
+  <!-- BOARD -->
+  <div id="board-wrap">
+    <div class="board-count" id="board-count"></div>
+    <div class="board-grid" id="board-grid"></div>
+  </div>
+
+  <div class="further-reading" style="background:#fff8e6; border-top-color:#f5d070;">
+    <h4 style="color:#a06000;">Further Reading</h4>
+    <div class="further-reading-grid">
+      <a href="https://www.humanesociety.org/resources/what-do-if-you-lose-your-pet" target="_blank" rel="noopener" class="further-reading-card" style="border-color:#f0d080; background:#fffbf0;">
+        <span class="fr-icon">🔍</span>
+        <div class="fr-text"><strong>What to Do If You Lose Your Pet</strong><span>Humane Society — a step-by-step action plan</span></div>
+      </a>
+      <a href="https://www.aspca.org/pet-care/general-pet-care/microchipping-your-pet" target="_blank" rel="noopener" class="further-reading-card" style="border-color:#f0d080; background:#fffbf0;">
+        <span class="fr-icon">📡</span>
+        <div class="fr-text"><strong>Why Microchip Your Pet</strong><span>ASPCA — how microchipping works and why it matters</span></div>
+      </a>
+    </div>
+  </div>
+
+  <footer>
+    <p>🐾 FurAndFound Animal Shelter · Connecting pets with the people who care</p>
+    <p>Built with love for dogs, cats, kids, adults, and seniors everywhere.</p>
+  </footer>
+
+  <script>
+    let currentFilter = 'all';
+
+    function filterBoard(type, btn) {
+      currentFilter = type;
+      document.querySelectorAll('.filter-pill').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      renderBoard();
+    }
+
+    function markFound(id) {
+      let posts = JSON.parse(localStorage.getItem('lostPetBoard') || '[]');
+      posts = posts.filter(p => p.id !== id);
+      localStorage.setItem('lostPetBoard', JSON.stringify(posts));
+      renderBoard();
+      alert('🎉 Amazing news! So glad they\'re home safe. Poster removed from the board.');
+    }
+
+    function shareCard(id) {
+      const posts = JSON.parse(localStorage.getItem('lostPetBoard') || '[]');
+      const p = posts.find(x => x.id === id);
+      if (!p) return;
+      const text = `🚨 LOST ${p.type.toUpperCase()}: ${p.name} — Last seen: ${p.location}. Contact: ${p.contact}`;
+      navigator.clipboard.writeText(text).then(() => alert('📋 Copied to clipboard! Paste it anywhere to share.'));
+    }
+
+    function renderBoard() {
+      const posts = JSON.parse(localStorage.getItem('lostPetBoard') || '[]');
+      const filtered = currentFilter === 'all' ? posts : posts.filter(p => p.type === currentFilter);
+      const grid = document.getElementById('board-grid');
+      const count = document.getElementById('board-count');
+
+      if (filtered.length === 0) {
+        count.textContent = '';
+        grid.innerHTML = `
+          <div class="board-empty">
+            <p>No lost pets posted yet${currentFilter !== 'all' ? ' for this filter' : ''} 🐾</p>
+            <a href="lost.html">Report a Lost Pet</a>
+          </div>`;
+        return;
+      }
+
+      count.textContent = `${filtered.length} lost pet${filtered.length !== 1 ? 's' : ''} reported`;
+      grid.innerHTML = filtered.map(p => `
+        <div class="board-card">
+          ${p.photo
+            ? `<img class="board-card-photo" src="${p.photo}" alt="${p.name}" />`
+            : `<div class="board-card-photo-placeholder">${p.type === 'Dog' ? '🐶' : p.type === 'Cat' ? '🐱' : '🐾'}</div>`}
+          <div class="board-card-body">
+            <div class="board-card-status">🚨 Lost ${p.type}</div>
+            <div class="board-card-name">${p.name}</div>
+            <div class="board-card-meta">
+              ${p.breed ? `<strong>Breed:</strong> ${p.breed}<br>` : ''}
+              ${p.color ? `<strong>Colour:</strong> ${p.color}<br>` : ''}
+              <strong>Last seen:</strong> ${p.location}${p.date ? ' · ' + p.date : ''}
+              ${p.desc ? `<br>${p.desc}` : ''}
+            </div>
+            ${p.reward ? `<span class="board-card-reward">💰 $${p.reward} Reward</span>` : ''}
+            <div class="board-card-contact">📞 ${p.contact}</div>
+            <div class="board-card-date">Posted ${p.postedAt}</div>
+          </div>
+          <div class="board-card-footer">
+            <button class="btn-found" onclick="markFound(${p.id})">🎉 Found!</button>
+            <button class="btn-share-post" onclick="shareCard(${p.id})">📋 Copy</button>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    renderBoard();
+  </script>
+
+</body>
+</html>
